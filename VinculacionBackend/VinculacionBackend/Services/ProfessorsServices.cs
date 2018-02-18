@@ -72,7 +72,8 @@ namespace VinculacionBackend.Services
 
         public IQueryable<User> GetProfessors()
         {
-            return _professorRepository.GetAll();
+            var professors = _professorRepository.GetAll();
+            return professors;
         }
 
 
