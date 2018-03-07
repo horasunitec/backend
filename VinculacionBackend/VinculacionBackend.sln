@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VinculacionBackend.Security
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VinculacionBackend.Specs", "VinculacionBackend.Specs\VinculacionBackend.Specs.csproj", "{09660DDC-DE0D-4EE5-90A4-388DF85316BE}"
 EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "VinculacionBackend.Cloud", "VinculacionBackend.Cloud\VinculacionBackend.Cloud.ccproj", "{7231BB06-09E1-43CD-9474-A96A3B0A27FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{09660DDC-DE0D-4EE5-90A4-388DF85316BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09660DDC-DE0D-4EE5-90A4-388DF85316BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09660DDC-DE0D-4EE5-90A4-388DF85316BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7231BB06-09E1-43CD-9474-A96A3B0A27FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7231BB06-09E1-43CD-9474-A96A3B0A27FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7231BB06-09E1-43CD-9474-A96A3B0A27FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7231BB06-09E1-43CD-9474-A96A3B0A27FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
