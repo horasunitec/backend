@@ -3,7 +3,7 @@ namespace VinculacionBackend.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Init : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -12,8 +12,8 @@ namespace VinculacionBackend.Data.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Code = c.String(unicode: false),
-                        Name = c.String(unicode: false),
+                        Code = c.String(),
+                        Name = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -22,7 +22,7 @@ namespace VinculacionBackend.Data.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Name = c.String(unicode: false),
+                        Name = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -46,6 +46,9 @@ namespace VinculacionBackend.Data.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
+                        IsApproved = c.Boolean(nullable: false),
+                        Description = c.String(),
+                        Cost = c.Double(nullable: false),
                         Project_Id = c.Long(),
                         Section_Id = c.Long(),
                     })
@@ -60,14 +63,11 @@ namespace VinculacionBackend.Data.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        ProjectId = c.String(unicode: false),
-                        Name = c.String(unicode: false),
-                        Description = c.String(unicode: false),
-                        Cost = c.Double(nullable: false),
+                        ProjectId = c.String(),
+                        Name = c.String(),
+                        Description = c.String(),
                         IsDeleted = c.Boolean(nullable: false),
-                        BeneficiarieOrganization = c.String(unicode: false),
-                        BeneficiarieGroups = c.String(unicode: false),
-                        BeneficiariesQuantity = c.Int(nullable: false),
+                        BeneficiarieOrganization = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -76,7 +76,7 @@ namespace VinculacionBackend.Data.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Code = c.String(unicode: false),
+                        Code = c.String(),
                         Class_Id = c.Long(),
                         Period_Id = c.Long(),
                         User_Id = c.Long(),
@@ -96,8 +96,8 @@ namespace VinculacionBackend.Data.Migrations
                         Id = c.Long(nullable: false, identity: true),
                         Number = c.Int(nullable: false),
                         Year = c.Int(nullable: false),
-                        FromDate = c.String(unicode: false),
-                        ToDate = c.String(unicode: false),
+                        FromDate = c.String(),
+                        ToDate = c.String(),
                         IsCurrent = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
@@ -107,13 +107,14 @@ namespace VinculacionBackend.Data.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        AccountId = c.String(unicode: false),
-                        Name = c.String(unicode: false),
-                        Password = c.String(unicode: false),
-                        Campus = c.String(unicode: false),
-                        Email = c.String(unicode: false),
-                        CreationDate = c.DateTime(nullable: false, precision: 0),
-                        ModificationDate = c.DateTime(nullable: false, precision: 0),
+                        AccountId = c.String(),
+                        Name = c.String(),
+                        Password = c.String(),
+                        Campus = c.String(),
+                        Email = c.String(),
+                        CreationDate = c.DateTime(nullable: false),
+                        ModificationDate = c.DateTime(nullable: false),
+                        Finiquiteado = c.Boolean(nullable: false),
                         Status = c.Int(nullable: false),
                         Major_Id = c.Long(),
                     })
@@ -126,8 +127,8 @@ namespace VinculacionBackend.Data.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        MajorId = c.String(unicode: false),
-                        Name = c.String(unicode: false),
+                        MajorId = c.String(),
+                        Name = c.String(),
                         Faculty_Id = c.Long(),
                     })
                 .PrimaryKey(t => t.Id)
@@ -167,7 +168,7 @@ namespace VinculacionBackend.Data.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Name = c.String(unicode: false),
+                        Name = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             

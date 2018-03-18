@@ -101,7 +101,14 @@ namespace VinculacionBackend.Security.BasicAuthentication
             }
             catch (Exception e)
             {
-                actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, e.Message);
+                if (e.InnerException != null)
+                {
+                    actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, e.Message + ", Inner Exception: " + e.InnerException);
+                }
+                else
+                {
+                    actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, e.Message);
+                }
                 actionContext.Response.Headers.Add(BasicAuthResponseHeader, BasicAuthResponseHeaderValue);
                 return;
             }

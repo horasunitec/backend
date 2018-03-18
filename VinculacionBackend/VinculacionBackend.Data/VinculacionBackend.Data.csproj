@@ -35,11 +35,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Moq, Version=4.5.9.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.5.9\lib\net45\Moq.dll</HintPath>
@@ -54,10 +53,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Entity" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\VinculacionContext.cs" />
@@ -100,25 +99,9 @@
     <Compile Include="Interfaces\ISectionRepository.cs" />
     <Compile Include="Interfaces\IStudentRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
-    <Compile Include="Migrations\201606070451424_Init.cs" />
-    <Compile Include="Migrations\201606070451424_Init.Designer.cs">
-      <DependentUpon>201606070451424_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606210351590_DropBenficiariesGroupAndQuantity.cs" />
-    <Compile Include="Migrations\201606210351590_DropBenficiariesGroupAndQuantity.Designer.cs">
-      <DependentUpon>201606210351590_DropBenficiariesGroupAndQuantity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608052222482_Finiquito.cs" />
-    <Compile Include="Migrations\201608052222482_Finiquito.Designer.cs">
-      <DependentUpon>201608052222482_Finiquito.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608190157159_ApproveInSecProject.cs" />
-    <Compile Include="Migrations\201608190157159_ApproveInSecProject.Designer.cs">
-      <DependentUpon>201608190157159_ApproveInSecProject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608250352405_SectionProjectRestructure.cs" />
-    <Compile Include="Migrations\201608250352405_SectionProjectRestructure.Designer.cs">
-      <DependentUpon>201608250352405_SectionProjectRestructure.cs</DependentUpon>
+    <Compile Include="Migrations\201803171824283_Initial.cs" />
+    <Compile Include="Migrations\201803171824283_Initial.Designer.cs">
+      <DependentUpon>201803171824283_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FacultyHoursReportModel.cs" />
@@ -142,20 +125,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201606070451424_Init.resx">
-      <DependentUpon>201606070451424_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606210351590_DropBenficiariesGroupAndQuantity.resx">
-      <DependentUpon>201606210351590_DropBenficiariesGroupAndQuantity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608052222482_Finiquito.resx">
-      <DependentUpon>201608052222482_Finiquito.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608190157159_ApproveInSecProject.resx">
-      <DependentUpon>201608190157159_ApproveInSecProject.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608250352405_SectionProjectRestructure.resx">
-      <DependentUpon>201608250352405_SectionProjectRestructure.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803171824283_Initial.resx">
+      <DependentUpon>201803171824283_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
