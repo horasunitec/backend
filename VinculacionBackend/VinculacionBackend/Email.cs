@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Net;
 using System.Net.Mail;
-using RestSharp;
-using RestSharp.Authenticators;
 using VinculacionBackend.Interfaces;
 
 namespace VinculacionBackend
 {
     public class Email:IEmail
-    {    
-        public bool Send(string emailAdress, string msg, string subject)
+    {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        public void Send(string emailAdress, string msg, string subject)
         {
             try
             {
@@ -22,7 +21,7 @@ namespace VinculacionBackend
                     Host = "smtp.gmail.com",
                     Port = 587,
                     EnableSsl = true,
-                    DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,
                     Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
                 };
@@ -33,11 +32,14 @@ namespace VinculacionBackend
                     Body = msg
                 }) ;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return false;
+                logger.Error(e.Message);
             }
-            return true;
+            finally
+            {
+                logger.Info("Finally");
+            }
         }
     }
 }

@@ -143,7 +143,12 @@ namespace VinculacionBackend.Controllers
             _studentsServices.Map(newStudent, userModel);
             _studentsServices.Add(newStudent);
             var stringparameter = _encryption.Encrypt(newStudent.AccountId);
-            _email.Send(newStudent.Email, "Hacer click en el siguiente link para activar su cuenta: " + HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + "/api/Students/" + HttpContext.Current.Server.UrlEncode(stringparameter) + "/Active", "Vinculación");
+            _email.Send(newStudent.Email, 
+                "Hacer click en el siguiente link para activar su cuenta: " + 
+                    HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + 
+                    "/api/Students/" + HttpContext.Current.Server.UrlEncode(stringparameter) + 
+                    "/Active", 
+                "Vinculación");
             return Ok(newStudent);
         }
 
@@ -155,7 +160,12 @@ namespace VinculacionBackend.Controllers
         {
             _studentsServices.ChangePassword(model);
             var stringparameter = _encryption.Encrypt(model.AccountId);
-            _email.Send(model.Email, "Hacer click en el siguiente link para activar su cuenta: " + HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + "/api/Students/" + HttpContext.Current.Server.UrlEncode(stringparameter) + "/Active", "Vinculación");
+            _email.Send(model.Email, 
+                "Hacer click en el siguiente link para activar su cuenta: " + 
+                    HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + 
+                    "/api/Students/" + HttpContext.Current.Server.UrlEncode(stringparameter) + 
+                    "/Active", 
+                "Vinculación");
             return Ok();
         }
 
