@@ -21,7 +21,9 @@ namespace VinculacionBackend.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class StudentsController : ApiController
-    {            
+    {
+        static string frontEndSite = "http://159.89.229.181";
+        static string backEndSite = "http://backend-4.apphb.com";
         private readonly IStudentsServices _studentsServices;
         private readonly IHoursServices _hoursServices;
         private readonly IEmail _email;
@@ -144,8 +146,8 @@ namespace VinculacionBackend.Controllers
             _studentsServices.Add(newStudent);
             var stringparameter = _encryption.Encrypt(newStudent.AccountId);
             _email.Send(newStudent.Email, 
-                "Hacer click en el siguiente link para activar su cuenta: " + 
-                    HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + 
+                "Hacer click en el siguiente link para activar su cuenta: " +
+                    backEndSite + 
                     "/api/Students/" + HttpContext.Current.Server.UrlEncode(stringparameter) + 
                     "/Active", 
                 "Vinculación");
@@ -161,8 +163,8 @@ namespace VinculacionBackend.Controllers
             _studentsServices.ChangePassword(model);
             var stringparameter = _encryption.Encrypt(model.AccountId);
             _email.Send(model.Email, 
-                "Hacer click en el siguiente link para activar su cuenta: " + 
-                    HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + 
+                "Hacer click en el siguiente link para activar su cuenta: " +
+                    backEndSite + 
                     "/api/Students/" + HttpContext.Current.Server.UrlEncode(stringparameter) + 
                     "/Active", 
                 "Vinculación");
@@ -177,7 +179,7 @@ namespace VinculacionBackend.Controllers
             var accountId = _encryption.Decrypt(HttpContext.Current.Server.UrlDecode(guid));
             var student = _studentsServices.ActivateUser(accountId);
             var response = Request.CreateResponse(HttpStatusCode.Moved);
-            response.Headers.Location = new Uri("http://fiasps.unitec.edu:8096");
+            response.Headers.Location = new Uri(frontEndSite);
             return response;
         }
 
