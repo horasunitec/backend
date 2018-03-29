@@ -10,7 +10,8 @@ namespace VinculacionBackend
         public void Send(string emailAdress, string msg, string subject)
         {
             var fromAddress = new MailAddress("horasunitec@gmail.com");
-            var fromPassword = "goldeneye007";
+            var encrypter = new Data.Encryption();
+            var fromPassword = encrypter.Decrypt("XwHmlRyXybsIXb8pOcTlMg==");
             var toAddress = new MailAddress(emailAdress);
 
             System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient
