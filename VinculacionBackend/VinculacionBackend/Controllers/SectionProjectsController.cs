@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
@@ -15,12 +14,10 @@ namespace VinculacionBackend.Controllers
     public class SectionProjectsController : ApiController
     {
         private readonly ISectionProjectServices _sectionProjectServices;
-        private readonly ILogger _logger;
 
-        public SectionProjectsController(ISectionProjectServices sectionProjectServices, ILogger logger)
+        public SectionProjectsController(ISectionProjectServices sectionProjectServices)
         {
             _sectionProjectServices = sectionProjectServices;
-            _logger = logger;
         }
 
 
@@ -29,15 +26,7 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin")]
         public IQueryable<SectionProject> GetSectionProjecstUnApproved()
         {
-            try
-            {
-                return _sectionProjectServices.GetUnapproved();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            return _sectionProjectServices.GetUnapproved();
         }
 
 
@@ -46,15 +35,7 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin,Professor")]
         public SectionProject GetSectionProject(long sectionprojectId)
         {
-            try
-            {
-                return _sectionProjectServices.GetInfo(sectionprojectId);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            return _sectionProjectServices.GetInfo(sectionprojectId);
         }
 
         [ResponseType(typeof(SectionProject))]
@@ -62,15 +43,7 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin,Professor")]
         public SectionProject GetSectionProject(long sectionId,long projectId)
         {
-            try
-            {
-                return _sectionProjectServices.GetInfo(sectionId, projectId);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            return _sectionProjectServices.GetInfo(sectionId, projectId);
         }
 
         // POST: api/SectionProjects
@@ -80,15 +53,8 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PostSectionProject(SectionProjectEntryModel sectionProjectEntryModel)
         {
-            try
-            {
-                return Ok(_sectionProjectServices.AddOrUpdate(sectionProjectEntryModel));
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            
+            return Ok(_sectionProjectServices.AddOrUpdate(sectionProjectEntryModel));
         }
 
         [ResponseType(typeof(void))]
@@ -96,16 +62,8 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin")]
         public IHttpActionResult PutSectionProject(long sectionprojectId)
         {
-            try
-            {
-                _sectionProjectServices.Approve(sectionprojectId);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            _sectionProjectServices.Approve(sectionprojectId);
+            return Ok();
         }
 
     }

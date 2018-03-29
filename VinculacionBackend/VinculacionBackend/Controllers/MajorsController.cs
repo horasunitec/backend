@@ -6,7 +6,6 @@ using System.Web.Http.Cors;
 using System.Web.OData;
 using VinculacionBackend.Data.Entities;
 using VinculacionBackend.Interfaces;
-using System;
 
 namespace VinculacionBackend.Controllers
 {
@@ -15,13 +14,10 @@ namespace VinculacionBackend.Controllers
     {
         private readonly IMajorsServices _majorsServices;
         private readonly IMemoryCacher _memCacher;
-        private readonly ILogger _logger;
-
-        public MajorsController(IMajorsServices majorsServices,IMemoryCacher memcCacher, ILogger logger)
+        public MajorsController(IMajorsServices majorsServices,IMemoryCacher memcCacher)
         {
             _majorsServices = majorsServices;
             _memCacher = memcCacher;
-            _logger = logger;
         }
 
         // GET: api/Majors
@@ -29,15 +25,7 @@ namespace VinculacionBackend.Controllers
         [EnableQuery]
         public IEnumerable<Major> GetMajors()
         {
-            try
-            {
-                return _memCacher.GetMajors(_majorsServices);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            return _memCacher.GetMajors(_majorsServices);
         }
         
         // GET: api/Majors/5
@@ -45,16 +33,8 @@ namespace VinculacionBackend.Controllers
         [Route("api/Majors/{majorId}")]
         public IHttpActionResult GetMajor(string majorId)
         {
-            try
-            {
-                Major major = _majorsServices.Find(majorId);
-                return Ok(major);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            Major major = _majorsServices.Find(majorId);
+            return Ok(major);
         }
 
 
@@ -62,15 +42,9 @@ namespace VinculacionBackend.Controllers
         [Route("api/Majors/MajorsByProject/{projectId}")]
         public IQueryable<Major> GetMajorsByProject(long projectId)
         {
-            try
-            {
-                return _majorsServices.GetByProject(projectId);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            return _majorsServices.GetByProject(projectId);
         }
+              
+
     }
 }

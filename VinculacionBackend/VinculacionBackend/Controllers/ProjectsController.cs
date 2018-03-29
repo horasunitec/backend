@@ -18,12 +18,10 @@ namespace VinculacionBackend.Controllers
     public class ProjectsController : ApiController
     {
         private readonly IProjectServices _services;
-        private readonly ILogger _logger;
 
-        public ProjectsController(IProjectServices services, ILogger logger)
+        public ProjectsController(IProjectServices services)
         {
             _services = services;
-            _logger = logger;
         }
 
 
@@ -33,15 +31,7 @@ namespace VinculacionBackend.Controllers
         [EnableQuery]
         public IQueryable<Project> GetProjects()
         {
-            try
-            {
-                return _services.All();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }   
+            return _services.All();
         }
 
 
@@ -52,33 +42,16 @@ namespace VinculacionBackend.Controllers
         [EnableQuery]
         public IQueryable<Project> GetProjectsByUser()
         {
-            try
-            {
-                var currentUser = (CustomPrincipal)HttpContext.Current.User;
-                return _services.GetUserProjects(currentUser.UserId, currentUser.roles);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
-            
+            var currentUser = (CustomPrincipal)HttpContext.Current.User;
+            return _services.GetUserProjects(currentUser.UserId, currentUser.roles);
         }
 
         [Route("api/ProjectsCount")]
         [CustomAuthorize(Roles = "Admin,Professor,Student")]
         public int GetProjectsCount()
         {
-            try
-            {
-                var currentUser = (CustomPrincipal)HttpContext.Current.User;
-                return _services.GetUserProjects(currentUser.UserId, currentUser.roles).Count();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            var currentUser = (CustomPrincipal)HttpContext.Current.User;
+            return _services.GetUserProjects(currentUser.UserId, currentUser.roles).Count();
         }
 
         // GET: api/Projects/5
@@ -87,31 +60,15 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin,Professor,Student")]
         public IHttpActionResult GetProject(long projectId)
         {
-            try
-            {
-                Project project = _services.Find(projectId);
-                return Ok(project);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }   
+            Project project = _services.Find(projectId);
+            return Ok(project);
         }
 
         // Get: api/Projects/FinalReport/
         [Route("api/Projects/FinalReport/{projectId}/{sectionId}/{fieldHours}/{calification}/{beneficiariesQuantities}/{beneficiariGroups}")]
         public HttpResponseMessage GetProjectFinalReport(long projectId,long sectionId,int fieldHours, int calification, int beneficiariesQuantities, string beneficiariGroups)
         {
-            try
-            {
-                return _services.GetFinalReport(projectId, sectionId, fieldHours, calification, beneficiariesQuantities, beneficiariGroups);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            return _services.GetFinalReport(projectId,sectionId,fieldHours,calification,beneficiariesQuantities,beneficiariGroups);
         }
 
         // GET: api/Projects/5
@@ -120,16 +77,9 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin,Professor,Student")]
         public IQueryable<User> GetProjectStudents(long projectId)
         {
-            try
-            {
-                return _services.GetProjectStudents(projectId);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            return _services.GetProjectStudents(projectId);
         }
+
 
         // GET: api/Projects
         [Route("api/Projects/ProjectsBySection/{sectionId}")]
@@ -137,16 +87,8 @@ namespace VinculacionBackend.Controllers
         [EnableQuery]
         public IQueryable<Project> GetProjectsBySection(long sectionId)
         {
-            try
-            {
-                var projects = _services.GetProjectsBySection(sectionId);
-                return projects;
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }   
+            var projects = _services.GetProjectsBySection(sectionId);
+            return projects;
         }
 
         // PUT: api/Projects/5
@@ -155,16 +97,8 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PutProject(long projectId, ProjectModel model)
         {
-            try
-            {
-                var tmpProject = _services.UpdateProject(projectId, model);
-                return Ok(tmpProject);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            var tmpProject = _services.UpdateProject(projectId, model);
+            return Ok(tmpProject);
         }
 
         [ResponseType(typeof(void))]
@@ -172,16 +106,8 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PostAssignSection(ProjectSectionModel model)
         {
-            try
-            {
-                _services.AssignSection(model);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            _services.AssignSection(model);
+            return Ok();
         }
 
         [ResponseType(typeof(void))]
@@ -189,16 +115,8 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PostAssignSections(ProjectsSectionModel model)
         {
-            try
-            {
-                _services.AssignProjectsToSection(model);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            _services.AssignProjectsToSection(model);
+            return Ok();
         }
 
 
@@ -207,16 +125,8 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PostRemoveSection(ProjectSectionModel model)
         {
-            try
-            {
-                _services.RemoveFromSection(model.ProjectId, model.SectionId);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+             _services.RemoveFromSection(model.ProjectId,model.SectionId);
+            return Ok();
         }
 
         // POST: api/Projects
@@ -226,16 +136,9 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PostProject(ProjectModel model)
         {
-            try
-            {
-                var project = _services.Add(model);
-                return Ok(project);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            var project = _services.Add(model);
+            return Ok(project);
+
         }
 
         //DELETE: api/Projects/5
@@ -244,16 +147,8 @@ namespace VinculacionBackend.Controllers
         [ResponseType(typeof(Project))]
         public IHttpActionResult DeleteProject(long projectId)
         {
-            try
-            {
-                Project project = _services.Delete(projectId);
-                return Ok(project);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            Project project = _services.Delete(projectId);
+            return Ok(project);
         }
     }
 }

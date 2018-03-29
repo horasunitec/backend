@@ -9,7 +9,6 @@ using VinculacionBackend.Data.Entities;
 using VinculacionBackend.Interfaces;
 using VinculacionBackend.Models;
 using VinculacionBackend.Security.BasicAuthentication;
-using System;
 
 namespace VinculacionBackend.Controllers
 {
@@ -17,12 +16,10 @@ namespace VinculacionBackend.Controllers
     public class SectionsController : ApiController
     {
         private readonly ISectionsServices _sectionServices;
-        private readonly ILogger _logger;
 
-        public SectionsController( ISectionsServices sectionServices, ILogger logger)
+        public SectionsController( ISectionsServices sectionServices)
         {
             _sectionServices = sectionServices;
-            _logger = logger;
         }
 
         // GET: api/Sections
@@ -31,16 +28,8 @@ namespace VinculacionBackend.Controllers
         [EnableQuery]
         public IQueryable<Section> GetSections()
         {
-            try
-            {
-                var currentUser = (CustomPrincipal)HttpContext.Current.User;
-                return _sectionServices.AllByUser(currentUser.UserId, currentUser.roles);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            var currentUser = (CustomPrincipal)HttpContext.Current.User;
+            return _sectionServices.AllByUser(currentUser.UserId, currentUser.roles);
         }
 
 
@@ -50,16 +39,8 @@ namespace VinculacionBackend.Controllers
         [EnableQuery]
         public IQueryable<Section> GetCurrentPeriodSections()
         {
-            try
-            {
-                var currentUser = (CustomPrincipal)HttpContext.Current.User;
-                return _sectionServices.GetCurrentPeriodSectionsByUser(currentUser.UserId, currentUser.roles.Single());
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            var currentUser = (CustomPrincipal)HttpContext.Current.User;
+            return _sectionServices.GetCurrentPeriodSectionsByUser(currentUser.UserId, currentUser.roles.Single());
         }
 
 
@@ -69,17 +50,9 @@ namespace VinculacionBackend.Controllers
         [EnableQuery]
         public IQueryable<Section> GetSectionsByProject(long projectId)
         {
-            try
-            {
-                var currentUser = (CustomPrincipal)HttpContext.Current.User;
-                var sections = _sectionServices.GetSectionsByProject(projectId, currentUser.roles.Single(), currentUser.UserId);
-                return sections;
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            var currentUser = (CustomPrincipal)HttpContext.Current.User;
+            var sections = _sectionServices.GetSectionsByProject(projectId,currentUser.roles.Single(),currentUser.UserId);
+            return sections;
         }
 
         // GET: api/Sections/5
@@ -88,16 +61,8 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin,Professor,Student")]
         public IHttpActionResult GetSection(long sectionId)
         {
-            try
-            {
-                var section = _sectionServices.Find(sectionId);
-                return Ok(section);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            var section = _sectionServices.Find(sectionId);
+            return Ok(section);
         }
 
         // GET: api/Sections/5
@@ -106,15 +71,7 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin,Professor,Student")]
         public IQueryable<User> GetSectionStudents(long sectionId)
         {
-            try
-            {
-                return _sectionServices.GetSectionStudents(sectionId);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            return _sectionServices.GetSectionStudents(sectionId);
         }
 
 
@@ -123,15 +80,7 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin,Professor,Student")]
         public object GetSectionStudentsHour(long sectionId,long projectId)
         {
-            try
-            {
-                return _sectionServices.GetSectionStudentsHour(sectionId, projectId);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            return _sectionServices.GetSectionStudentsHour(sectionId,projectId);
         }
 
         // GET: api/Sections/5
@@ -140,15 +89,7 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin,Professor,Student")]
         public IQueryable<Project> GetSectionProjects(long sectionId)
         {
-            try
-            {
-                return _sectionServices.GetSectionsProjects(sectionId);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            return _sectionServices.GetSectionsProjects(sectionId);
         }
 
 
@@ -159,18 +100,10 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PostSection(SectionEntryModel sectionModel)
         {
-            try
-            {
-                var section = new Section();
-                _sectionServices.Map(section, sectionModel);
-                _sectionServices.Add(section);
-                return Ok(section);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            var section = new Section();
+            _sectionServices.Map(section,sectionModel);
+            _sectionServices.Add(section);
+            return Ok(section);
         }
 
         [Route("api/Sections/AssignStudents")]
@@ -179,16 +112,9 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PostAssignStudents(SectionStudentModel model)
         {
-            try
-            {
-                _sectionServices.AssignStudents(model);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+
+            _sectionServices.AssignStudents(model);
+            return Ok();
         }
         
         [Route("api/Sections/RemoveStudents")]
@@ -197,16 +123,9 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PostRemoveStudents(SectionStudentModel model)
         {
-            try
-            {
-                _sectionServices.RemoveStudents(model);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+
+            _sectionServices.RemoveStudents(model);
+            return Ok();
         }
 
         // PUT: api/Sections/5
@@ -215,16 +134,9 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PutSection(long sectionId,SectionEntryModel model)
         {
-            try
-            {
-                var tmpSection = _sectionServices.UpdateSection(sectionId, model);
-                return Ok(tmpSection);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+
+            var tmpSection = _sectionServices.UpdateSection(sectionId, model);
+            return Ok(tmpSection);
         }
 
         // DELETE: api/Sections/5
@@ -233,16 +145,8 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin,Professor")]
         public IHttpActionResult DeleteSection(long sectionId)
         {
-            try
-            {
-                Section section = _sectionServices.Delete(sectionId);
-                return Ok(section);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            Section section = _sectionServices.Delete(sectionId);
+            return Ok(section);
         }
 
         [Route("api/Sections/Reassign")]
@@ -251,16 +155,11 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PostReassignStudents(SectionStudentModel model)
         {
-            try
-            {
-                _sectionServices.RebuildSectionStudentRelationships(model);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+
+            _sectionServices.RebuildSectionStudentRelationships(model);
+            return Ok();
         }
+
+
     }
 }

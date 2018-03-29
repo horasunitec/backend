@@ -21,20 +21,18 @@ namespace VinculacionBackend.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class StudentsController : ApiController
-    {
+    {            
         private readonly IStudentsServices _studentsServices;
         private readonly IHoursServices _hoursServices;
         private readonly IEmail _email;
         private readonly IEncryption _encryption;
-        private readonly ILogger _logger;
 
-        public StudentsController(IStudentsServices studentServices, IEmail email, IEncryption encryption, IHoursServices hoursServices, ILogger logger)
+        public StudentsController(IStudentsServices studentServices, IEmail email, IEncryption encryption, IHoursServices hoursServices)
         {
             _studentsServices = studentServices;
             _email = email;
             _encryption = encryption;
             _hoursServices = hoursServices;
-            _logger = logger;
         }
 
         // GET: api/Students
@@ -43,15 +41,7 @@ namespace VinculacionBackend.Controllers
         [EnableQuery]
         public IQueryable<User> GetStudents()
         {
-            try
-            {
-                return _studentsServices.AllUsers();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            return _studentsServices.AllUsers();
         }
 
         // GET: api/Students/5
@@ -60,16 +50,8 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin,Professor,Student")]
         public IHttpActionResult GetStudent(string accountId)
         {
-            try
-            {
-                var student = _studentsServices.Find(accountId);
-                return Ok(student);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            var student = _studentsServices.Find(accountId);  
+            return Ok(student);
         }
 
         [ResponseType(typeof(User))]
@@ -77,17 +59,10 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Student")]
         public IHttpActionResult GetCurrentStudent()
         {
-            try
-            {
-                var currentUser = (CustomPrincipal)HttpContext.Current.User;
-                var student = _studentsServices.GetCurrentStudents(currentUser.UserId);
-                return Ok(student);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            var currentUser = (CustomPrincipal)HttpContext.Current.User;
+
+            var student = _studentsServices.GetCurrentStudents(currentUser.UserId);
+            return Ok(student);
         }
 
 
@@ -95,16 +70,8 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin")]
         public IHttpActionResult PostAddManyStudents([FromBody]List<StudentAddManyEntryModel> students)
         {
-            try
-            {
-                _studentsServices.AddMany(students);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            _studentsServices.AddMany(students);
+            return Ok();
         }
 
         [ResponseType(typeof(User))]
@@ -112,45 +79,23 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin,Professor,Student")]
         public IHttpActionResult PostStudentByEmail(EmailModel model)
         {
-            try
-            {
-                var student = _studentsServices.FindByEmail(model.Email);
-                return Ok(student);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            var student = _studentsServices.FindByEmail(model.Email);
+            return Ok(student);
         }
 
         [Route("api/Students/PendingFiniquitoStudents")]
         [EnableQuery]
         public IQueryable<FiniquitoUserModel> GetStudentsPendingFiniquito()
         {
-            try
-            {
-                return _studentsServices.GetPendingStudentsFiniquito();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+
+            return _studentsServices.GetPendingStudentsFiniquito();
         }
 
         [Route("api/Students/FiniquitoReport/{accountId}")]
         public HttpResponseMessage GetProjectFinalReport(string accountId)
         {
-            try
-            {
-                return _studentsServices.GetFiniquitoReport(accountId);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+
+            return _studentsServices.GetFiniquitoReport(accountId);
         }
 
         [ResponseType(typeof(User))]
@@ -158,17 +103,9 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin,Professor,Student")]
         public IHttpActionResult GetStudentHour(string accountId)
         {
-            try
-            {
-                var student = _studentsServices.Find(accountId);
-                var total = _studentsServices.GetStudentHours(accountId);
-                return Ok(total);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            var student = _studentsServices.Find(accountId);
+            var total = _studentsServices.GetStudentHours(accountId);
+            return Ok(total);
         }
 
         [ResponseType(typeof(User))]
@@ -176,46 +113,23 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin,Professor,Student")]
         public IHttpActionResult GetStudentHourBySection(string accountId, long sectionId)
         {
-            try
-            {
-                var total = _studentsServices.GetStudentHoursBySection(accountId, sectionId);
-                return Ok(total);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            var total = _studentsServices.GetStudentHoursBySection(accountId, sectionId);
+            return Ok(total);
         }
 
         [Route("api/Students/{accountId}/SectionHours")]
         [CustomAuthorize(Roles = "Admin,Professor,Student")]
         public IQueryable<object> GetStudentSection(string accountId)
         {
-            try
-            {
-                return _studentsServices.GetStudentSections(accountId);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            return _studentsServices.GetStudentSections(accountId);
         }
 
         [Route("api/Students/Filter/{status}")]
         [CustomAuthorize(Roles = "Admin,Professor")]
         public IQueryable<User> GetStudents(string status)
         {
-            try
-            {
-                return _studentsServices.ListbyStatus(status);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            return _studentsServices.ListbyStatus(status);
+
         }
 
 
@@ -225,25 +139,17 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PostStudent(UserEntryModel userModel)
         {
-            try
-            {
-                var newStudent = new User();
-                _studentsServices.Map(newStudent, userModel);
-                _studentsServices.Add(newStudent);
-                var stringparameter = _encryption.Encrypt(newStudent.AccountId);
-                _email.Send(newStudent.Email,
-                    "Hacer click en el siguiente link para activar su cuenta: " +
-                        HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) +
-                        "/api/Students/" + HttpContext.Current.Server.UrlEncode(stringparameter) +
-                        "/Active",
-                    "Vinculación");
-                return Ok(newStudent);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            var newStudent = new User();
+            _studentsServices.Map(newStudent, userModel);
+            _studentsServices.Add(newStudent);
+            var stringparameter = _encryption.Encrypt(newStudent.AccountId);
+            _email.Send(newStudent.Email, 
+                "Hacer click en el siguiente link para activar su cuenta: " + 
+                    HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + 
+                    "/api/Students/" + HttpContext.Current.Server.UrlEncode(stringparameter) + 
+                    "/Active", 
+                "Vinculación");
+            return Ok(newStudent);
         }
 
 
@@ -252,24 +158,15 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PostChangePassword(StudentChangePasswordModel model)
         {
-            try
-            {
-                _studentsServices.ChangePassword(model);
-                var stringparameter = _encryption.Encrypt(model.AccountId);
-                _email.Send(model.Email,
-                    "Hacer click en el siguiente link para activar su cuenta: " +
-                        HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) +
-                        "/api/Students/" + HttpContext.Current.Server.UrlEncode(stringparameter) +
-                        "/Active",
-                    "Vinculación");
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
-
+            _studentsServices.ChangePassword(model);
+            var stringparameter = _encryption.Encrypt(model.AccountId);
+            _email.Send(model.Email, 
+                "Hacer click en el siguiente link para activar su cuenta: " + 
+                    HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + 
+                    "/api/Students/" + HttpContext.Current.Server.UrlEncode(stringparameter) + 
+                    "/Active", 
+                "Vinculación");
+            return Ok();
         }
 
 
@@ -277,20 +174,11 @@ namespace VinculacionBackend.Controllers
         [Route("api/Students/{guid}/Active")]
         public HttpResponseMessage GetActiveStudent(string guid)
         {
-            try
-            {
-                var accountId = _encryption.Decrypt(HttpContext.Current.Server.UrlDecode(guid));
-                var student = _studentsServices.ActivateUser(accountId);
-                var response = Request.CreateResponse(HttpStatusCode.Moved);
-                response.Headers.Location = new Uri("http://fiasps.unitec.edu:8096");
-                return response;
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
-
+            var accountId = _encryption.Decrypt(HttpContext.Current.Server.UrlDecode(guid));
+            var student = _studentsServices.ActivateUser(accountId);
+            var response = Request.CreateResponse(HttpStatusCode.Moved);
+            response.Headers.Location = new Uri("http://fiasps.unitec.edu:8096");
+            return response;
         }
 
 
@@ -300,17 +188,9 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin")]
         public IHttpActionResult PutStudent(string accountId, UserUpdateModel model)
         {
-            try
-            {
-                var student = _studentsServices.UpdateStudent(accountId, model);
-                return Ok(student);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
 
+            var student = _studentsServices.UpdateStudent(accountId, model);
+            return Ok(student);
         }
 
         // DELETE: api/Students/5
@@ -319,51 +199,29 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin,Professor")]
         public IHttpActionResult DeleteStudent(string accountId)
         {
-            try
-            {
-                User user = _studentsServices.DeleteUser(accountId);
-                return Ok(user);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
 
-
+            User user = _studentsServices.DeleteUser(accountId);
+            return Ok(user);
+    
         }
 
         [Route("api/StudentHourReport/{accountId}")]
         public HourReportModel GetStudentsHourReport(string accountId)
         {
-            try
-            {
-                return _hoursServices.HourReport(accountId);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
-
+            return _hoursServices.HourReport(accountId);
         }
 
+
+       
         [HttpPost]
         [Route("api/Students/Parse")]
         public IQueryable<object> Parse([FromBody]string data)
         {
-            try
-            {
-                var content = Convert.FromBase64String(data);
-                MemoryStream stream = new MemoryStream(content);
-                var excel = new XLWorkbook(stream);
-                return _studentsServices.ParseExcelStudents(excel);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+           
+            var content = Convert.FromBase64String(data);
+            MemoryStream stream = new MemoryStream(content);
+            var excel = new XLWorkbook(stream);
+            return _studentsServices.ParseExcelStudents(excel);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
@@ -16,12 +15,10 @@ namespace VinculacionBackend.Controllers
     public class ClassesController : ApiController
     {
         private readonly IClassesServices _classesServices;
-        private readonly ILogger _logger;
 
-        public ClassesController(IClassesServices classesServices, ILogger logger)
+        public ClassesController(IClassesServices classesServices)
         {
             _classesServices = classesServices;
-            _logger = logger;
         }
 
         // GET: api/Classes
@@ -29,15 +26,7 @@ namespace VinculacionBackend.Controllers
         [EnableQuery]
         public IQueryable<Class> GetClasses()
         {
-            try
-            {
-                return _classesServices.All();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            return _classesServices.All();
         }
 
         // GET: api/Classes/5
@@ -45,16 +34,8 @@ namespace VinculacionBackend.Controllers
         [Route("api/Classes/{id}")]
         public IHttpActionResult GetClass(long id)
         {
-            try
-            {
-                Class @class = _classesServices.Find(id);
-                return Ok(@class);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            Class @class = _classesServices.Find(id);
+            return Ok(@class);
         }
 
         // POST: api/Classes
@@ -64,18 +45,10 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PostClass(ClassEntryModel classModel)
         {
-            try
-            {
-                var newClass = new Class();
-                _classesServices.Map(newClass, classModel);
-                _classesServices.Add(newClass);
-                return Ok(newClass);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            var newClass = new Class();
+            _classesServices.Map(newClass,classModel);
+            _classesServices.Add(newClass);
+            return Ok(newClass);
         }
 
 
@@ -85,16 +58,8 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PutClass(long classId,ClassEntryModel classModel)
         {
-            try
-            {
-                var Class = _classesServices.UpdateClass(classId, classModel);
-                return Ok(Class);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }
+            var Class = _classesServices.UpdateClass(classId, classModel);
+            return Ok(Class);
         }
 
         // DELETE: api/Classes/5
@@ -102,16 +67,8 @@ namespace VinculacionBackend.Controllers
         [ResponseType(typeof(Class))]
         public IHttpActionResult DeleteClass(long id)
         {
-            try
-            {
-                var @class = _classesServices.Delete(id);
-                return Ok(@class);
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e);
-                throw;
-            }   
+            var @class = _classesServices.Delete(id);
+            return Ok(@class);
         }
     }
 }
