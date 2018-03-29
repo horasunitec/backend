@@ -6,6 +6,7 @@ using System.Web.Http.Cors;
 using VinculacionBackend.Data.Entities;
 using VinculacionBackend.Interfaces;
 using VinculacionBackend.Security.BasicAuthentication;
+using System;
 
 namespace VinculacionBackend.Controllers
 {
@@ -14,10 +15,12 @@ namespace VinculacionBackend.Controllers
     public class HoursController : ApiController
     {
         private readonly IHoursServices _hoursServices;
+        private readonly ILogger _logger;
 
-        public HoursController(IHoursServices hoursServices)
+        public HoursController(IHoursServices hoursServices, ILogger logger)
         {
             _hoursServices = hoursServices;
+            _logger = logger;
         }
 
         // POST: api/Hours
@@ -26,8 +29,16 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin,Professor")]
         public IHttpActionResult PostHour(HourEntryModel hourModel)
         {
-            var hour = _hoursServices.Add(hourModel, HttpContext.Current.User.Identity.Name);
-            return Ok(hour); 
+            try
+            {
+                var hour = _hoursServices.Add(hourModel, HttpContext.Current.User.Identity.Name);
+                return Ok(hour);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e);
+                throw;
+            }
         }
 
 
@@ -36,8 +47,16 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin,Professor")]
         public IHttpActionResult PostManyHours(HourCollectionEntryModel hourModel)
         {
-            _hoursServices.AddMany(hourModel, HttpContext.Current.User.Identity.Name);
-            return Ok();
+            try
+            {
+                _hoursServices.AddMany(hourModel, HttpContext.Current.User.Identity.Name);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e);
+                throw;
+            }
         }
 
         // POST: api/Hours
@@ -46,8 +65,16 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin,Professor")]
         public IHttpActionResult PutHour(long hourId,HourEntryModel hourModel)
         {
-            var hour = _hoursServices.Update(hourId,hourModel);
-            return Ok(hour);
+            try
+            {
+                var hour = _hoursServices.Update(hourId, hourModel);
+                return Ok(hour);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e);
+                throw;
+            }
         }
     }
 }

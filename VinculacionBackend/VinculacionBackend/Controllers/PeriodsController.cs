@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
@@ -15,10 +16,12 @@ namespace VinculacionBackend.Controllers
     public class PeriodsController : ApiController
     {
         private readonly IPeriodsServices _periodsServices;
+        private readonly ILogger _logger;
 
-        public PeriodsController(IPeriodsServices periodsServices)
+        public PeriodsController(IPeriodsServices periodsServices, ILogger logger)
         {
             _periodsServices = periodsServices;
+            _logger = logger;
         }
 
         // GET: api/Periods
@@ -26,7 +29,15 @@ namespace VinculacionBackend.Controllers
         [EnableQuery]
         public IQueryable<Period> GetPeriods()
         {
-            return _periodsServices.All();
+            try
+            {
+                return _periodsServices.All();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e);
+                throw;
+            }
         }
 
         // GET: api/Periods/5
@@ -35,8 +46,16 @@ namespace VinculacionBackend.Controllers
 
         public IHttpActionResult GetPeriod(long id)
         {
-            Period period = _periodsServices.Find(id);
-            return Ok(period);
+            try
+            {
+                Period period = _periodsServices.Find(id);
+                return Ok(period);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e);
+                throw;
+            }
         }
 
         // GET: api/Periods/5
@@ -45,7 +64,16 @@ namespace VinculacionBackend.Controllers
 
         public IHttpActionResult GetCurrentPeriod()
         {
-            return Ok (_periodsServices.GetCurrentPeriod());
+            try
+            {
+                return Ok(_periodsServices.GetCurrentPeriod());
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e);
+                throw;
+            }
+            
         }
 
         // PUT: api/Periods/SetCurrentPeriod/5
@@ -54,8 +82,16 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin")]
         public IHttpActionResult PutSetCurrentPeriod(long periodId)
         {
-            var period=_periodsServices.SetCurrentPeriod(periodId);
-            return Ok(period);
+            try
+            {
+                var period = _periodsServices.SetCurrentPeriod(periodId);
+                return Ok(period);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e);
+                throw;
+            }
         }
 
         // POST: api/Periods
@@ -65,10 +101,18 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PostPeriod(PeriodEntryModel periodModel)
         {
-            var newPeriod =new Period();
-            _periodsServices.Map(newPeriod,periodModel);
-            _periodsServices.Add(newPeriod);
-            return Ok(newPeriod);
+            try
+            {
+                var newPeriod = new Period();
+                _periodsServices.Map(newPeriod, periodModel);
+                _periodsServices.Add(newPeriod);
+                return Ok(newPeriod);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e);
+                throw;
+            }   
         }
 
         [ResponseType(typeof(Period))]
@@ -77,9 +121,16 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PustPeriod(long periodId,PeriodEntryModel periodModel)
         {
-
-            var newPeriod = _periodsServices.UpdatePeriod(periodId,periodModel);
-            return Ok(newPeriod);
+            try
+            {
+                var newPeriod = _periodsServices.UpdatePeriod(periodId, periodModel);
+                return Ok(newPeriod);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e);
+                throw;
+            }
         }
 
         // DELETE: api/Periods/5
@@ -87,8 +138,16 @@ namespace VinculacionBackend.Controllers
         [ResponseType(typeof(Period))]
         public IHttpActionResult DeletePeriod(long id)
         {
-            var period = _periodsServices.Delete(id);
-            return Ok(period);
+            try
+            {
+                var period = _periodsServices.Delete(id);
+                return Ok(period);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e);
+                throw;
+            }
         }
     }
 }

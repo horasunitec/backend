@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -20,12 +21,14 @@ namespace VinculacionBackend.Controllers
         private readonly IProfessorsServices _professorsServices;
         private readonly IEmail _email;
         private readonly IEncryption _encryption;
+        private readonly ILogger _logger;
 
-        public ProfessorsController(IProfessorsServices professorsServices, IEmail email, IEncryption encryption)
+        public ProfessorsController(IProfessorsServices professorsServices, IEmail email, IEncryption encryption, ILogger logger)
         {
             _professorsServices = professorsServices;
             _encryption = encryption;
             _email = email;
+            _logger = logger;
         }
 
         [Route("api/Professors")]
@@ -34,7 +37,16 @@ namespace VinculacionBackend.Controllers
         // GET: api/Professors
         public IQueryable<User> GetUsers()
         {
-            return _professorsServices.GetProfessors();
+            try
+            {
+                return _professorsServices.GetProfessors();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e);
+                throw;
+            }
+            
         }
 
         // GET: api/Professors/5
@@ -43,8 +55,17 @@ namespace VinculacionBackend.Controllers
         [ResponseType(typeof(User))]
         public IHttpActionResult GetUser(string accountId)
         {
-            var professor = _professorsServices.Find(accountId);
-            return Ok(professor);
+            try
+            {
+                var professor = _professorsServices.Find(accountId);
+                return Ok(professor);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e);
+                throw;
+            }
+            
         }
 
 
@@ -54,9 +75,18 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PostAcceptVerified(VerifiedProfessorModel model)
         {
-            model.AccountId = HttpContext.Current.Server.UrlDecode(model.AccountId);
-            _professorsServices.VerifyProfessor(model);
-            return Ok();
+            try
+            {
+                model.AccountId = HttpContext.Current.Server.UrlDecode(model.AccountId);
+                _professorsServices.VerifyProfessor(model);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e);
+                throw;
+            }
+            
         }
 
 
@@ -67,14 +97,23 @@ namespace VinculacionBackend.Controllers
         [ValidateModel]
         public IHttpActionResult PostUser(ProfessorEntryModel professorModel)
         {
-            var professor= new User();
-            _professorsServices.Map(professor,professorModel);
-            _professorsServices.AddProfessor(professor);
-            var accountIdParameter = _encryption.Encrypt(professor.AccountId);
-            _email.Send(professor.Email
-            ,"Hacer click en el siguiente link para establecer su contraseña : http://fiasps.unitec.edu:8096/registro-maestro/" + HttpContext.Current.Server.UrlEncode(accountIdParameter)
-            ,"Vinculacion");
-            return Ok(professor);
+            try
+            {
+                var professor = new User();
+                _professorsServices.Map(professor, professorModel);
+                _professorsServices.AddProfessor(professor);
+                var accountIdParameter = _encryption.Encrypt(professor.AccountId);
+                _email.Send(professor.Email
+                , "Hacer click en el siguiente link para establecer su contraseña : http://fiasps.unitec.edu:8096/registro-maestro/" + HttpContext.Current.Server.UrlEncode(accountIdParameter)
+                , "Vinculacion");
+                return Ok(professor);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e);
+                throw;
+            }
+            
         }
 
         [ResponseType(typeof(User))]
@@ -83,9 +122,17 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin")]
         public IHttpActionResult PutProfessor(string accountId, ProfessorUpdateModel model)
         {
-
-            var professor = _professorsServices.UpdateProfessor(accountId, model);
-            return Ok(professor);
+            try
+            {
+                var professor = _professorsServices.UpdateProfessor(accountId, model);
+                return Ok(professor);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e);
+                throw;
+            }
+            
         }
 
         // DELETE: api/Professors/5
@@ -94,11 +141,17 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin")]
         public IHttpActionResult DeleteUser(string accountId)
         {
-
-            var professor = _professorsServices.DeleteProfessor(accountId);
-            return Ok(professor);
+            try
+            {
+                var professor = _professorsServices.DeleteProfessor(accountId);
+                return Ok(professor);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e);
+                throw;
+            }
+            
         }
-
-
     }
 }

@@ -137,6 +137,15 @@
       <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.6.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Console, Version=3.1.1.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.Console.3.1.1\lib\net45\Serilog.Sinks.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.File.4.0.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
     <Reference Include="Spire.Doc, Version=5.5.0.54040, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
       <HintPath>..\packages\FreeSpire.Doc.5.5\lib\net40\Spire.Doc.dll</HintPath>
       <Private>True</Private>
@@ -265,6 +274,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Cache\MemoryCacher.cs" />
     <Compile Include="Controllers\ClassesController.cs" />
+    <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Models\ProfessorUpdateModel.cs" />
     <Compile Include="Models\UserUpdateModel.cs" />
     <Compile Include="MyStreamProvider.cs" />
@@ -351,6 +361,7 @@
     <Compile Include="Interfaces\IProjectServices.cs" />
     <Compile Include="Interfaces\ITextDocumentServices.cs" />
     <Compile Include="Interfaces\IFacultiesServices.cs" />
+    <Compile Include="Services\Logger.cs" />
     <Compile Include="Services\MajorsServices.cs" />
     <Compile Include="Services\PeriodsServices.cs" />
     <Compile Include="Services\ProfessorsServices.cs" />
