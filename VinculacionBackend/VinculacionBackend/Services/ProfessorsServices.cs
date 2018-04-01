@@ -38,12 +38,12 @@ namespace VinculacionBackend.Services
         {
             professor.AccountId = professorModel.AccountId;
             professor.Name = professorModel.Name;
-            professor.Password = _encryption.Encrypt(professorModel.Password);
+            //professor.Password = _encryption.Encrypt(professorModel.Password);
             professor.Major = null;
             professor.Campus = professorModel.Campus;
             professor.Email = professorModel.Email;
             professor.ModificationDate = DateTime.Now;
-            professor.Finiquiteado = true;
+            //professor.Finiquiteado = true;
         }
 
 

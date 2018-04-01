@@ -61,13 +61,13 @@ namespace VinculacionBackend.Services
         {
             student.AccountId = userModel.AccountId;
             student.Name = userModel.Name;
-            student.Password = _encryption.Encrypt(userModel.Password);
+            //student.Password = _encryption.Encrypt(userModel.Password);
             if (student.Major.MajorId != userModel.MajorId)
                 student.Major = _majorServices.Find(userModel.MajorId);
             student.Campus = userModel.Campus;
             student.Email = userModel.Email;
             student.ModificationDate = DateTime.Now;
-            student.Finiquiteado = false;
+            //student.Finiquiteado = false;
         }
 
         public void ChangePassword(StudentChangePasswordModel model)
@@ -79,7 +79,6 @@ namespace VinculacionBackend.Services
             _studentRepository.Update(student);
             _studentRepository.Save();
         }
-
 
         public void Add(User user)
         {
@@ -107,7 +106,6 @@ namespace VinculacionBackend.Services
             return _studentRepository.GetStudentsByStatus(status) as IQueryable<User>;
         }
 
-
         public User ActivateUser(string accountId)
         {
             var student = Find(accountId);
@@ -117,7 +115,6 @@ namespace VinculacionBackend.Services
             return student;
         }
 
-      
         public User DeleteUser(string accountId)
         {
             var user = _studentRepository.DeleteByAccountNumber(accountId);
@@ -155,6 +152,17 @@ namespace VinculacionBackend.Services
             _studentRepository.Update(student);
             _studentRepository.Save();
             return student;
+        }
+
+        public void ResetPasswordStudent(ResetPasswordModel model)
+        {
+            var student = _studentRepository.GetByAccountNumber(model.AccountId);
+            if (student == null)
+                throw new NotFoundException("No se encontro el estudiante");
+            student.Password = _encryption.Encrypt(model.Password);
+            student.Status = Status.Inactive;
+            _studentRepository.Update(student);
+            _studentRepository.Save();
         }
 
         public List<StudentReportModel> CreateStudentReport(int year)

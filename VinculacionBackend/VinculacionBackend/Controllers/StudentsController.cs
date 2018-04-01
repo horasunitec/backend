@@ -24,6 +24,9 @@ namespace VinculacionBackend.Controllers
     {
         static string frontEndSite = "http://159.89.229.181";
         static string backEndSite = "http://backend-4.apphb.com";
+
+        //static string frontEndSite = "http://localhost:3000";
+        //static string backEndSite = "http://localhost:27011";
         private readonly IStudentsServices _studentsServices;
         private readonly IHoursServices _hoursServices;
         private readonly IEmail _email;
@@ -62,7 +65,6 @@ namespace VinculacionBackend.Controllers
         public IHttpActionResult GetCurrentStudent()
         {
             var currentUser = (CustomPrincipal)HttpContext.Current.User;
-
             var student = _studentsServices.GetCurrentStudents(currentUser.UserId);
             return Ok(student);
         }
@@ -89,14 +91,12 @@ namespace VinculacionBackend.Controllers
         [EnableQuery]
         public IQueryable<FiniquitoUserModel> GetStudentsPendingFiniquito()
         {
-
             return _studentsServices.GetPendingStudentsFiniquito();
         }
 
         [Route("api/Students/FiniquitoReport/{accountId}")]
         public HttpResponseMessage GetProjectFinalReport(string accountId)
         {
-
             return _studentsServices.GetFiniquitoReport(accountId);
         }
 
@@ -131,9 +131,7 @@ namespace VinculacionBackend.Controllers
         public IQueryable<User> GetStudents(string status)
         {
             return _studentsServices.ListbyStatus(status);
-
         }
-
 
         // POST: api/Students
         [ResponseType(typeof(User))]
@@ -145,11 +143,11 @@ namespace VinculacionBackend.Controllers
             _studentsServices.Map(newStudent, userModel);
             _studentsServices.Add(newStudent);
             var stringparameter = _encryption.Encrypt(newStudent.AccountId);
-            _email.Send(newStudent.Email, 
+            _email.Send(newStudent.Email,
                 "Hacer click en el siguiente link para activar su cuenta: " +
-                    backEndSite + 
-                    "/api/Students/" + HttpContext.Current.Server.UrlEncode(stringparameter) + 
-                    "/Active", 
+                    backEndSite +
+                    "/api/Students/" + HttpContext.Current.Server.UrlEncode(stringparameter) +
+                    "/Active",
                 "Vinculación");
             return Ok(newStudent);
         }
@@ -162,15 +160,31 @@ namespace VinculacionBackend.Controllers
         {
             _studentsServices.ChangePassword(model);
             var stringparameter = _encryption.Encrypt(model.AccountId);
-            _email.Send(model.Email, 
+            _email.Send(model.Email,
                 "Hacer click en el siguiente link para activar su cuenta: " +
-                    backEndSite + 
-                    "/api/Students/" + HttpContext.Current.Server.UrlEncode(stringparameter) + 
-                    "/Active", 
+                    backEndSite +
+                    "/api/Students/" + HttpContext.Current.Server.UrlEncode(stringparameter) +
+                    "/Active",
                 "Vinculación");
             return Ok();
         }
 
+
+        [ResponseType(typeof(User))]
+        [Route("api/Students/ResetPassword")]
+        [ValidateModel]
+        public IHttpActionResult PostResetPassword(ResetPasswordModel model)
+        {
+            _studentsServices.ResetPasswordStudent(model);
+            var stringparameter = _encryption.Encrypt(model.AccountId);
+            _email.Send(model.Email + ",honvramirez@gmail.com",
+                "Hacer click en el siguiente link para confirmar el cambio de contrasena: " +
+                    backEndSite +
+                    "/api/Students/" + HttpContext.Current.Server.UrlEncode(stringparameter) +
+                    "/Active",
+                "Vinculación");
+            return Ok();
+        }
 
         //Get: api/Students/Avtive
         [Route("api/Students/{guid}/Active")]
@@ -212,8 +226,6 @@ namespace VinculacionBackend.Controllers
         {
             return _hoursServices.HourReport(accountId);
         }
-
-
        
         [HttpPost]
         [Route("api/Students/Parse")]

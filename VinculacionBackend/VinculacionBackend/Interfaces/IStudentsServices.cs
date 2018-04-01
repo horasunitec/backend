@@ -30,7 +30,7 @@ namespace VinculacionBackend.Interfaces
         IQueryable<object> GetStudentSections(string accountId);
         void AddMany(IList<StudentAddManyEntryModel> students);
         void ChangePassword(StudentChangePasswordModel model);
-
+        void ResetPasswordStudent(ResetPasswordModel model);
         List<StudentReportModel> CreateHourNumberReport(int year);
     }
 }

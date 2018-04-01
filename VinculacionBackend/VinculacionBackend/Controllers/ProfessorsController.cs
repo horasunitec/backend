@@ -16,7 +16,6 @@ namespace VinculacionBackend.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProfessorsController : ApiController
     {
-
         private readonly IProfessorsServices _professorsServices;
         private readonly IEmail _email;
         private readonly IEncryption _encryption;
@@ -47,18 +46,15 @@ namespace VinculacionBackend.Controllers
             return Ok(professor);
         }
 
-
         //Put: api/Professors/Verified
         [ResponseType(typeof(User))]
         [Route("api/Professors/Verified")]
         [ValidateModel]
         public IHttpActionResult PostAcceptVerified(VerifiedProfessorModel model)
         {
-            model.AccountId = HttpContext.Current.Server.UrlDecode(model.AccountId);
             _professorsServices.VerifyProfessor(model);
             return Ok();
         }
-
 
         // POST: api/Professors
         [ResponseType(typeof(User))]
@@ -71,9 +67,10 @@ namespace VinculacionBackend.Controllers
             _professorsServices.Map(professor,professorModel);
             _professorsServices.AddProfessor(professor);
             var accountIdParameter = _encryption.Encrypt(professor.AccountId);
-            _email.Send(professor.Email
-            ,"Hacer click en el siguiente link para establecer su contraseña : http://fiasps.unitec.edu:8096/registro-maestro/" + HttpContext.Current.Server.UrlEncode(accountIdParameter)
-            ,"Vinculacion");
+            _email.Send(professor.Email,
+                "Hacer click en el siguiente link para establecer su contraseña : http://159.89.229.181/registro-maestro/" + 
+                    HttpContext.Current.Server.UrlEncode(accountIdParameter),
+                "Vinculacion");
             return Ok(professor);
         }
 
@@ -83,7 +80,6 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin")]
         public IHttpActionResult PutProfessor(string accountId, ProfessorUpdateModel model)
         {
-
             var professor = _professorsServices.UpdateProfessor(accountId, model);
             return Ok(professor);
         }
@@ -94,11 +90,8 @@ namespace VinculacionBackend.Controllers
         [CustomAuthorize(Roles = "Admin")]
         public IHttpActionResult DeleteUser(string accountId)
         {
-
             var professor = _professorsServices.DeleteProfessor(accountId);
             return Ok(professor);
         }
-
-
     }
 }
