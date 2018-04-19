@@ -12,5 +12,11 @@ namespace VinculacionBackend.Models
         public string SectionName { get; set; }
         public int HoursWorked { get; set; }
         public string ProjectDescription { get; set; }
+
+        public int Period { get; set; }
+        public int Year { get; set; }
+        public string ProfessorName { get; set; }
+        public string Organization { get; set; }
+        public string ClassName { get; set; }
     }
 }
