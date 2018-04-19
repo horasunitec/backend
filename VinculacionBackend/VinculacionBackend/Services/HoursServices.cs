@@ -82,10 +82,11 @@ namespace VinculacionBackend.Services
                     HoursWorked = hour.Amount,
                     ProjectDescription = hour.SectionProject.Project.Description,
 
-                    Period = hour.SectionProject.Period.Number,
-                    Year = hour.SectionProject.Period.Year,
-                    ProfessorName = hour.SectionProject.User.Name,
-                    ClassName = hour.SectionProject.Class.Name
+                    Period = hour.SectionProject.Section.Period.Number,
+                    Year = hour.SectionProject.Section.Period.Year,
+                    ProfessorName = hour.SectionProject.Section.User.Name,
+                    ClassName = hour.SectionProject.Section.Class.Name,
+                    Organization = hour.SectionProject.Project.BeneficiarieOrganization
                 };
                 reportProject.Add(project);
             }

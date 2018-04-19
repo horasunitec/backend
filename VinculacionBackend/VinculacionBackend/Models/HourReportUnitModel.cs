@@ -18,5 +18,6 @@ namespace VinculacionBackend.Models
         public string ProfessorName { get; set; }
         public string Organization { get; set; }
         public string ClassName { get; set; }
+        public string Organization { get; set; }
     }
 }
