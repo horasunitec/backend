@@ -52,7 +52,13 @@ namespace VinculacionBackend
             {
                 var result = new HttpResponseMessage(HttpStatusCode.NotAcceptable)
                 {
-                    Content = new StringContent(context.Exception.Message),
+                    if(context.Exception.InnerException != null){
+                        Content = new StringContent(context.Exception.Message + context.Exception.InnerException),
+                    }
+                    else{
+                        Content = new StringContent(context.Exception.Message),    
+                    }
+                    
                     ReasonPhrase = "Invalid"
                 };
 
