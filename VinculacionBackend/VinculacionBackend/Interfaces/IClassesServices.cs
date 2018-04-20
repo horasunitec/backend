@@ -11,7 +11,7 @@ namespace VinculacionBackend.Interfaces
     public interface IClassesServices
     {
         IQueryable<Class> All();
-        IQueryable<Class> AllAlpha();
+        IEnumerable<Class> AllAlpha();
         Class Delete(long id);
         void Add(Class @class);
         Class Find(long id);
