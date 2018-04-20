@@ -91,7 +91,7 @@ namespace VinculacionBackend.Reports
 
             var p5 = _textDoucmentServices.CreateParagraph(page1);
             _textDoucmentServices.AddTextToParagraph("\r\n\r\n\r\n"+ending, p5, p2Style, doc, HorizontalAlignment.Justify, 13.8f);
-            return _downloadbleFile.ToHttpResponseMessage(doc, "Finiquito_" + finalName.Replace(" ","") + ".docx");
+            return _downloadbleFile.ToHttpResponseMessage(doc, "Finiquito_" + accountId + "_" + finalName.Replace(" ","") + ".docx");
         }
     }
 }
