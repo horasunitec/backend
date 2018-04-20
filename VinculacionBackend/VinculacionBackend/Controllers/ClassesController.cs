@@ -29,6 +29,14 @@ namespace VinculacionBackend.Controllers
             return _classesServices.All();
         }
 
+        // GET: api/Classes/alpha
+        [Route("api/Classes/alpha")]
+        [EnableQuery]
+        public IQueryable<Class> GetClassesAlpha()
+        {
+            return _classesServices.AllAlpha();
+        }
+
         // GET: api/Classes/5
         [ResponseType(typeof(Class))]
         [Route("api/Classes/{id}")]

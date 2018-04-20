@@ -21,6 +21,11 @@ namespace VinculacionBackend.Services
             return _classesRepository.GetAll();
         }
 
+        public IQueryable<Class> AllAlpha()
+        {
+            return _classesRepository.GetAll().OrderBy(Class => Class.Name);
+        }
+
         public Class Delete(long id)
         {
             var @class = _classesRepository.Delete(id);
