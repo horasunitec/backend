@@ -50,7 +50,7 @@ namespace VinculacionBackend.Reports
             var p0 = _textDoucmentServices.CreateParagraph(page1);
             var p0Style = _textDoucmentServices.CreateParagraphStyle(doc, "FiniquitoTitle", "Segoe UI", 14f, true);
             _textDoucmentServices.AddTextToParagraph("\r\n\r\n\r\nCARTA DE FINIQUITO DEFINITIVO",p0,p0Style,doc,HorizontalAlignment.Center, 13.8f);
-            _textDoucmentServices.AddTextToParagraph("\r\nPROGRAMA DE SERVICIO SOCIAL",p0,p0Style,doc,HorizontalAlignment.Center, 13.8f);
+            _textDoucmentServices.AddTextToParagraph("\r\nPROGRAMA DE SERVICIO SOCIAL\r\n",p0,p0Style,doc,HorizontalAlignment.Center, 13.8f);
 
             var p2 = _textDoucmentServices.CreateParagraph(page1);
             var p2Style = _textDoucmentServices.CreateParagraphStyle(doc, "FiniquitoBody", "Segoe UI", 12f, false);
@@ -91,7 +91,7 @@ namespace VinculacionBackend.Reports
 
             var p5 = _textDoucmentServices.CreateParagraph(page1);
             _textDoucmentServices.AddTextToParagraph("\r\n\r\n\r\n"+ending, p5, p2Style, doc, HorizontalAlignment.Justify, 13.8f);
-            return _downloadbleFile.ToHttpResponseMessage(doc, "Finiquito.docx");
+            return _downloadbleFile.ToHttpResponseMessage(doc, "Finiquito_" + finalName.Replace(" ","") + ".docx");
         }
     }
 }
