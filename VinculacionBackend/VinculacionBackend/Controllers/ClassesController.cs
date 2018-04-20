@@ -34,7 +34,7 @@ namespace VinculacionBackend.Controllers
         // GET: api/Classes/alpha
         [Route("api/Classes/alpha")]
         [EnableQuery]
-        public IQueryable<Class> GetClassesAlpha()
+        public IEnumerable<Class> GetClassesAlpha()
         {
             return _memCacher.GetClasses(_classesServices);
         }
