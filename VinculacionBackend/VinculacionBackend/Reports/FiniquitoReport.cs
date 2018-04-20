@@ -81,6 +81,7 @@ namespace VinculacionBackend.Reports
 
             var p4 = _textDoucmentServices.CreateParagraph(page1);
             _textDoucmentServices.AddTextToParagraph("\r\nSe extiende la presente constancia para los fines que al interesado convengan el ",p4,p2Style,doc,HorizontalAlignment.Justify, 13.8f);
+            var month = DateTime.Now.ToString("MMMM", new CultureInfo("es-ES"));
             var fechaText = _textDoucmentServices.AddTextToParagraph("" + DateTime.Now.Day + " de "+ char.ToUpper(month[0])+month.Substring(1) + " del " + DateTime.Now.Year + ".",p4,p2Style,doc,HorizontalAlignment.Justify, 13.8f);
             fechaText.CharacterFormat.Bold = true;
 
