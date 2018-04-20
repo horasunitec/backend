@@ -37,7 +37,8 @@ namespace VinculacionBackend.Controllers
         [EnableQuery]
         public IEnumerable<Class> GetClassesAlpha()
         {
-            return _memCacher.GetClasses(_classesServices);
+            return _classesServices.AllAlpha();
+            // return _memCacher.GetClasses(_classesServices);
         }
 
         // GET: api/Classes/5

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Collections.Generic;
 using VinculacionBackend.Data.Entities;
 using VinculacionBackend.Data.Exceptions;
 using VinculacionBackend.Data.Interfaces;
@@ -21,9 +22,9 @@ namespace VinculacionBackend.Services
             return _classesRepository.GetAll();
         }
 
-        public IQueryable<Class> AllAlpha()
+        public IEnumerable<Class> AllAlpha()
         {
-            return _classesRepository.GetAll().OrderBy(Class => Class.Name);
+            return _classesRepository.GetAllAlpha();
         }
 
         public Class Delete(long id)

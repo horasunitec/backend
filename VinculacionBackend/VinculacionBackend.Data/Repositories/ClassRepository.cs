@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 using VinculacionBackend.Data.Database;
 using VinculacionBackend.Data.Entities;
 using VinculacionBackend.Data.Interfaces;
@@ -17,6 +18,11 @@ namespace VinculacionBackend.Data.Repositories
         public IQueryable<Class> GetAll()
         {
             return _db.Classes;
+        }
+
+        public IEnumerable<Class> GetAllAlpha()
+        {
+            return _db.Classes.OrderBy("Name").Tolist();
         }
 
         public Class Get(long id)
