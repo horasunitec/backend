@@ -41,12 +41,12 @@ namespace VinculacionBackend.Cache
             return majors as IEnumerable<Major>;
         }
 
-        public IEnumerable<Class> GetClasses(IClassesService classesService)
+        public IEnumerable<Class> GetClasses(IClassesServices classesServices)
         {
             var classes = GetValue("Classes");
             if (classes == null)
             {
-                Add("Classes", classesService.AllAlpha().ToList(), DateTimeOffset.UtcNow.AddHours(24));
+                Add("Classes", classesServices.AllAlpha().ToList(), DateTimeOffset.UtcNow.AddHours(24));
                 classes = GetValue("Classes");
             }
             return classes as IEnumerable<Class>;
