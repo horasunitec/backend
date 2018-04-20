@@ -29,7 +29,8 @@ namespace VinculacionBackend.Cache
                 memoryCache.Remove(key);
             }
         }
-         public IEnumerable<Major> GetMajors(IMajorsServices majorsServices)
+        
+        public IEnumerable<Major> GetMajors(IMajorsServices majorsServices)
         {
             var majors = GetValue("Majors");
             if (majors == null)
@@ -38,6 +39,17 @@ namespace VinculacionBackend.Cache
                 majors =GetValue("Majors");
             }
             return majors as IEnumerable<Major>;
+        }
+
+        public IEnumerable<Class> GetClasses(IClassesService classesService)
+        {
+            var classes = GetValue("Classes");
+            if (classes == null)
+            {
+                Add("Classes", classesService.AllAlpha().ToList(), DateTimeOffset.UtcNow.AddHours(24));
+                classes = GetValue("Classes");
+            }
+            return classes as IEnumerable<Class>;
         }
     }
 }

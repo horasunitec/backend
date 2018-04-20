@@ -13,12 +13,14 @@ namespace VinculacionBackend.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ClassesController : ApiController
-    {
+    {   
+        private readonly IMemoryCacher _memCacher;
         private readonly IClassesServices _classesServices;
 
-        public ClassesController(IClassesServices classesServices)
+        public ClassesController(IClassesServices classesServices,IMemoryCacher memcCacher)
         {
             _classesServices = classesServices;
+            _memCacher = memcCacher;
         }
 
         // GET: api/Classes
@@ -34,7 +36,7 @@ namespace VinculacionBackend.Controllers
         [EnableQuery]
         public IQueryable<Class> GetClassesAlpha()
         {
-            return _classesServices.AllAlpha();
+            return _memCacher.GetClasses(_classesServices);
         }
 
         // GET: api/Classes/5
