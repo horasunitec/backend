@@ -7,6 +7,7 @@ namespace VinculacionBackend.Interfaces
     public interface IMemoryCacher
     {
         IEnumerable<Major> GetMajors(IMajorsServices majorsServices);
+        IEnumerable<Class> GetClasses(IClassesServices classesServices);
     }
 
 }
