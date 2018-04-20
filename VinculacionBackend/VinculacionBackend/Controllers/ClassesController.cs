@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using System.Web.OData;
+using System.Collections.Generic;
 using VinculacionBackend.ActionFilters;
 using VinculacionBackend.Data.Entities;
 using VinculacionBackend.Interfaces;
