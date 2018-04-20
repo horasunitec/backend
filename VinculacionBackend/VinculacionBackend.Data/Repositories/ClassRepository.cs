@@ -22,7 +22,7 @@ namespace VinculacionBackend.Data.Repositories
 
         public IEnumerable<Class> GetAllAlpha()
         {
-            return _db.Classes.OrderBy(Class => Class.Name).Tolist();
+            return _db.Classes.OrderBy(Class => Class.Name).ToList();
         }
 
         public Class Get(long id)
