@@ -94,6 +94,13 @@ namespace VinculacionBackend.Controllers
             return _studentsServices.GetPendingStudentsFiniquito();
         }
 
+        [Route("api/Students/FinalizedFiniquitoStudents")]
+        [EnableQuery]
+        public IQueryable<FiniquitoUserModel> GetStudentsFinalizedFiniquito()
+        {
+            return _studentsServices.GetFinalizedStudentsFiniquito();
+        }
+
         [Route("api/Students/FiniquitoReport/{accountId}")]
         public HttpResponseMessage GetProjectFinalReport(string accountId)
         {

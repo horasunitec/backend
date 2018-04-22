@@ -266,6 +266,51 @@ namespace VinculacionBackend.Services
             return toReturn.AsQueryable();
         }
 
+        public IQueryable<FiniquitoUserModel> GetFinalizedStudentsFiniquito()
+        {
+            var students = _studentRepository.GetAll().ToList();
+            var hours = _hourRepository.GetAll().ToList();
+
+            var toReturn = new List<FiniquitoUserModel>();
+
+            foreach (var student in students)
+            {
+                int hourTotal = 0;
+                bool validYear = false;
+                foreach (var hour in hours)
+                {
+                    if (hour.User.Id == student.Id)
+                    {
+                        hourTotal += hour.Amount;
+                        if (hour.SectionProject.Section.Period.Year >= 2016)
+                            validYear = true;
+                    }
+                }
+
+                if (hourTotal >= 100 && student.Finiquiteado && validYear)
+                {
+                    toReturn.Add(new FiniquitoUserModel
+                    {
+                        Id = student.Id,
+                        AccountId = student.AccountId,
+                        Major = student.Major,
+                        Name = student.Name,
+                        Campus = student.Campus,
+                        CreationDate = student.CreationDate,
+                        Email = student.Email,
+                        Finiquiteado = student.Finiquiteado,
+                        ModificationDate = student.ModificationDate,
+                        Password = student.Password,
+                        Status = student.Status,
+                        Hours = hourTotal
+
+                    });
+                }
+            }
+
+            return toReturn.AsQueryable();
+        }
+
         public User GetCurrentStudents(long userId)
         {
             return _studentRepository.Get(userId);

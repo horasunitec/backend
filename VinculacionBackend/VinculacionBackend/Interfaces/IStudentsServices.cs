@@ -25,6 +25,7 @@ namespace VinculacionBackend.Interfaces
         User UpdateStudent(string accountId, UserUpdateModel model);
         List<StudentReportModel> CreateStudentReport(int year);
         IQueryable<FiniquitoUserModel> GetPendingStudentsFiniquito();
+        IQueryable<FiniquitoUserModel> GetFinalizedStudentsFiniquito();
         User GetCurrentStudents(long userId);
         int GetStudentHoursBySection(string accountId, long sectionId);
         IQueryable<object> GetStudentSections(string accountId);
