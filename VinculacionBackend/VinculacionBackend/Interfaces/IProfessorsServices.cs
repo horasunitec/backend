@@ -11,6 +11,7 @@ namespace VinculacionBackend.Interfaces
         User Find(string accountId);
         User DeleteProfessor(string accountId);
         IQueryable<User> GetProfessors();
+        IQueryable<User> GetProfessorsAlpha();
         User UpdateProfessor(string accountId, ProfessorUpdateModel model);
         void VerifyProfessor(VerifiedProfessorModel model);
     }

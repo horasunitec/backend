@@ -22,8 +22,15 @@ namespace VinculacionBackend.Data.Repositories
 			var professors = _db.Users.Include(m => m.Major).Where(x => rels.Any(y => y.User.Id == x.Id));
 			return professors;
 		}
-		
-		public User Get(long id)
+
+        public IQueryable<User> GetAllAlpha()
+        {
+            var rels = GetUserRoleRelationships();
+            var professors = _db.Users.Include(m => m.Major).Where(x => rels.Any(y => y.User.Id == x.Id)).OrderBy(x => x.Name);
+            return professors;
+        }
+
+        public User Get(long id)
 		{
 			var rels = GetUserRoleRelationships();
 			var professor = _db.Users.Include(m => m.Major).Where(x => rels.Any(y => y.User.Id == x.Id)).FirstOrDefault(z => z.Id == id);
@@ -76,6 +83,5 @@ namespace VinculacionBackend.Data.Repositories
 		{
 		    return _db.UserRoleRels.Include(x => x.Role).Include(y => y.User).Where(z => z.Role.Name == "Professor");
 		}
-		
-	}
+    }
 }

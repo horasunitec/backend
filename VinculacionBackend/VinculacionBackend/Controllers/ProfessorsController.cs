@@ -36,6 +36,15 @@ namespace VinculacionBackend.Controllers
             return _professorsServices.GetProfessors();
         }
 
+        [Route("api/Professors/alpha")]
+        [CustomAuthorize(Roles = "Admin,Professor,Student")]
+        [EnableQuery]
+        // GET: api/Professors
+        public IQueryable<User> GetUsersAlpha()
+        {
+            return _professorsServices.GetProfessorsAlpha();
+        }
+
         // GET: api/Professors/5
         [Route("api/Professors/{accountId}")]
         [CustomAuthorize(Roles = "Admin,Professor,Student")]

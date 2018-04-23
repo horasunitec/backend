@@ -1,3 +1,4 @@
+using System.Linq;
 using VinculacionBackend.Data.Entities;
 
 namespace VinculacionBackend.Data.Interfaces
@@ -6,5 +7,6 @@ namespace VinculacionBackend.Data.Interfaces
 	{
 	    User GetByAccountId(string accountId);
         User DeleteByAccountNumber(string accountNumber);
+        IQueryable<User> GetAllAlpha();
     }
 }

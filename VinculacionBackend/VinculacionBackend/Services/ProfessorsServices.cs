@@ -76,7 +76,10 @@ namespace VinculacionBackend.Services
             return professors;
         }
 
-
+        public IQueryable<User> GetProfessorsAlpha()
+        {
+            return _professorRepository.GetAllAlpha();
+        }
         public User UpdateProfessor(string accountId, ProfessorUpdateModel model)
         {
             var professor = _professorRepository.GetByAccountId(accountId);
