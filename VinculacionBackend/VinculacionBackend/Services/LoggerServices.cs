@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using VinculacionBackend.Interfaces;
 
 namespace VinculacionBackend.Services
@@ -8,6 +9,7 @@ namespace VinculacionBackend.Services
         public void LogError(Exception e)
         {
             string logMessage = e.Message;
+            string cadena = HttpContext.Current.Request.Url.AbsoluteUri;
             if (e.InnerException != null)
             {
                 logMessage += ", Inner Exception: " + e.InnerException;
@@ -18,13 +20,14 @@ namespace VinculacionBackend.Services
             }
 
             var emailService = new Email();
-            emailService.Send("errorsunitec@gmail.com", logMessage, "Error On Server");
+            emailService.Send("errorsunitec@gmail.com", logMessage, "Error On Server " + cadena);
         }
 
         public void LogMessage(string message)
         {
+            string cadena = HttpContext.Current.Request.Url.AbsoluteUri;
             var emailService = new Email();
-            emailService.Send("errorsunitec@gmail.com", message, "Message from Server");
+            emailService.Send("errorsunitec@gmail.com", message, "Message from Server " + cadena);
         }
     }
 }
