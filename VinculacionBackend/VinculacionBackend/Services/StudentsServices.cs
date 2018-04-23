@@ -334,7 +334,7 @@ namespace VinculacionBackend.Services
                 AccountId = entry.AccountId,
                 Major = _majorServices.Find(entry.Major),
                 Email = entry.Email, Password = _encryption.Encrypt("12345"),
-                Campus = "SPS",
+                Campus = "USPS",
                 CreationDate = DateTime.Now,
                 ModificationDate = DateTime.Now,
                 Finiquiteado = false,

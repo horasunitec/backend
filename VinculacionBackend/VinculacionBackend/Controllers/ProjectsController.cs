@@ -132,7 +132,7 @@ namespace VinculacionBackend.Controllers
         // POST: api/Projects
         [Route("api/Projects")]
         [ResponseType(typeof(Project))]
-        [CustomAuthorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin,Professor")]
         [ValidateModel]
         public IHttpActionResult PostProject(ProjectModel model)
         {
