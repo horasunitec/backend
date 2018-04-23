@@ -123,12 +123,6 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.5.0\lib\net45\NLog.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog.MailKit, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.MailKit.2.1.1\lib\net40\NLog.MailKit.dll</HintPath>
-    </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
@@ -265,6 +259,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Cache\MemoryCacher.cs" />
     <Compile Include="Controllers\ClassesController.cs" />
+    <Compile Include="Interfaces\ILoggerServices.cs" />
     <Compile Include="Models\ResetPasswordModel.cs" />
     <Compile Include="Models\ProfessorUpdateModel.cs" />
     <Compile Include="Models\UserUpdateModel.cs" />
@@ -352,6 +347,7 @@
     <Compile Include="Interfaces\IProjectServices.cs" />
     <Compile Include="Interfaces\ITextDocumentServices.cs" />
     <Compile Include="Interfaces\IFacultiesServices.cs" />
+    <Compile Include="Services\LoggerServices.cs" />
     <Compile Include="Services\MajorsServices.cs" />
     <Compile Include="Services\PeriodsServices.cs" />
     <Compile Include="Services\ProfessorsServices.cs" />

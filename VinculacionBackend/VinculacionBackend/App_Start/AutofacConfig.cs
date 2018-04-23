@@ -65,7 +65,7 @@ namespace VinculacionBackend
             builder.RegisterType<FacultiesServices>().As<IFacultiesServices>().InstancePerRequest();
             builder.RegisterType<SectionProjectServices>().As<ISectionProjectServices>().InstancePerRequest();
             builder.RegisterType<ReportsServices>().As<ISheetsReportsServices>().InstancePerRequest();
-
+            builder.RegisterType<LoggerServices>().As<ILoggerServices>().InstancePerRequest();
 
         }
     }

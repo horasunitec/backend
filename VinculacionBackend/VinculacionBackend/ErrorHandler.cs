@@ -1,10 +1,12 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using VinculacionBackend.Data.Exceptions;
+using VinculacionBackend.Services;
 
 namespace VinculacionBackend
 {
@@ -16,6 +18,8 @@ namespace VinculacionBackend
         }
         public override void Handle(ExceptionHandlerContext context)
         {
+            var logger = new LoggerServices();
+            logger.LogError(context.Exception);
             if (context.Exception is NotFoundException)
             {
                 var result = new HttpResponseMessage(HttpStatusCode.NotFound)
@@ -74,6 +78,8 @@ namespace VinculacionBackend
 
         public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
         {
+            var logger = new LoggerServices();
+            logger.LogMessage(_httpResponseMessage.ToString());
             return Task.FromResult(_httpResponseMessage);
         }
     }
@@ -92,6 +98,8 @@ namespace VinculacionBackend
 
         public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
         {
+            var logger = new LoggerServices();
+            logger.LogMessage(_httpResponseMessage.ToString());
             return Task.FromResult(_httpResponseMessage);
         }
     }
@@ -111,6 +119,8 @@ namespace VinculacionBackend
 
         public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
         {
+            var logger = new LoggerServices();
+            logger.LogMessage(_httpResponseMessage.ToString());
             return Task.FromResult(_httpResponseMessage);
         }
     }
