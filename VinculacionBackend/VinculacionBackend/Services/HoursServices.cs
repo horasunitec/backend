@@ -97,5 +97,36 @@ namespace VinculacionBackend.Services
             };
             return report;
         }
+
+        public HourReportModel UnApprovedHourReport(string accountId)
+        {
+            var hours = _hourRepository.GetStudentUnApprovedHours(accountId);
+            var totalHours = hours.Sum(hour => (int?)hour.Amount) ?? 0;
+            var reportProject = new List<HourReportUnitModel>();
+            foreach (var hour in hours)
+            {
+                var project = new HourReportUnitModel
+                {
+                    ProjectId = hour.SectionProject.Project.ProjectId,
+                    ProjectName = hour.SectionProject.Project.Name,
+                    SectionName = hour.SectionProject.Section != null ? hour.SectionProject.Section.Code : "",
+                    HoursWorked = hour.Amount,
+                    ProjectDescription = hour.SectionProject.Project.Description,
+
+                    Period = hour.SectionProject.Section.Period.Number,
+                    Year = hour.SectionProject.Section.Period.Year,
+                    ProfessorName = hour.SectionProject.Section.User.Name,
+                    ClassName = hour.SectionProject.Section.Class.Name,
+                    Organization = hour.SectionProject.Project.BeneficiarieOrganization
+                };
+                reportProject.Add(project);
+            }
+            var report = new HourReportModel
+            {
+                TotalHours = totalHours,
+                Projects = reportProject
+            };
+            return report;
+        }
     }
 }

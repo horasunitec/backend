@@ -89,14 +89,14 @@ namespace VinculacionBackend.Controllers
 
         [Route("api/Students/PendingFiniquitoStudents")]
         [EnableQuery]
-        public IQueryable<FiniquitoUserModel> GetStudentsPendingFiniquito()
+        public IEnumerable<FiniquitoUserModel> GetStudentsPendingFiniquito()
         {
             return _studentsServices.GetPendingStudentsFiniquito();
         }
 
         [Route("api/Students/FinalizedFiniquitoStudents")]
         [EnableQuery]
-        public IQueryable<FiniquitoUserModel> GetStudentsFinalizedFiniquito()
+        public IEnumerable<FiniquitoUserModel> GetStudentsFinalizedFiniquito()
         {
             return _studentsServices.GetFinalizedStudentsFiniquito();
         }
@@ -233,7 +233,13 @@ namespace VinculacionBackend.Controllers
         {
             return _hoursServices.HourReport(accountId);
         }
-       
+
+        [Route("api/StudentUnApprovedHourReport/{accountId}")]
+        public HourReportModel GetStudentsUnApprovedHourReport(string accountId)
+        {
+            return _hoursServices.UnApprovedHourReport(accountId);
+        }
+
         [HttpPost]
         [Route("api/Students/Parse")]
         public IQueryable<object> Parse([FromBody]string data)

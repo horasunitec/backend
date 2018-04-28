@@ -25,5 +25,7 @@ namespace VinculacionBackend.Data.Interfaces
         int GetStudentHoursBySection(string accountId, long sectionId);
         IQueryable<object> GetStudentSections(string accountId);
         void InsertMany(IList<User> students);
+        IQueryable<User> GetFinalized();
+        IQueryable<User> GetNonFinalized();
     }
 }

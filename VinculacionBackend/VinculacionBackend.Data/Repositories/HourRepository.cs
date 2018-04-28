@@ -27,12 +27,23 @@ namespace VinculacionBackend.Data.Repositories
             return _db.Hours.Include("User").Include("SectionProject").FirstOrDefault(x=>x.Id==id);
         }
 
+        public IQueryable<Hour> GetValidYear()
+        {
+            return _db.Hours.Include("User").Include("SectionProject").Include(x => x.SectionProject.Section).Include(x => x.SectionProject.Section.Period).Where(x => x.SectionProject.Section.Period.Year >= 2016);
+        }
+
         public IQueryable<Hour> GetAll()
         {
             return _db.Hours.Include("User").Include("SectionProject").Include(x=>x.SectionProject.Section).Include(x => x.SectionProject.Section.Period);
         }
 
         public IQueryable<Hour> GetStudentHours(string accountId)
+        {
+            return _db.Hours.Where(hour => hour.User.AccountId == accountId)
+                .Include("SectionProject.Project").Include("SectionProject.Section").Include("SectionProject.Section.Period").Include("SectionProject.Section.Class").Include("SectionProject.Section.User");
+        }
+
+        public IQueryable<Hour> GetStudentUnApprovedHours(string accountId)
         {
             return _db.Hours.Where(hour => hour.User.AccountId == accountId)
                 .Include("SectionProject.Project").Include("SectionProject.Section").Include("SectionProject.Section.Period").Include("SectionProject.Section.Class").Include("SectionProject.Section.User");

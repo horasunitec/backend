@@ -5,9 +5,12 @@ namespace VinculacionBackend.Data.Interfaces
 {
     public interface IHourRepository : IRepository<Hour>
     {
-       Hour InsertHourFromModel(string accountId, long sectionId, long projectId, int hour,string professorUser, bool isAdmin);
-       IQueryable<Hour> GetStudentHours(string accountId);
+        Hour InsertHourFromModel(string accountId, long sectionId, long projectId, int hour,string professorUser, bool isAdmin);
+        IQueryable<Hour> GetStudentHours(string accountId);
+
+        IQueryable<Hour> GetStudentUnApprovedHours(string accountId);
         SectionProject GetSectionProjectRel(long sectionProjectId);
         void Update(SectionProject ent);
+        IQueryable<Hour> GetValidYear();
     }
 }

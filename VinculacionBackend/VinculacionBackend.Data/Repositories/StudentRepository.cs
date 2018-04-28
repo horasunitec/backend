@@ -91,6 +91,20 @@ namespace VinculacionBackend.Data.Repositories
             return students;
         }
 
+        public IQueryable<User> GetFinalized()
+        {
+            var rels = GetUserRoleRelationships();
+            var students = _db.Users.Include(m => m.Major).Include(f => f.Major.Faculty).Where(x => rels.Any(y => y.User.Id == x.Id)).Where(y => y.Finiquiteado);
+            return students;
+        }
+
+        public IQueryable<User> GetNonFinalized()
+        {
+            var rels = GetUserRoleRelationships();
+            var students = _db.Users.Include(m => m.Major).Include(f => f.Major.Faculty).Where(x => rels.Any(y => y.User.Id == x.Id)).Where(y => !y.Finiquiteado);
+            return students;
+        }
+
         public User GetByAccountNumber(string accountNumber)
         {
             var rels = GetUserRoleRelationships();
