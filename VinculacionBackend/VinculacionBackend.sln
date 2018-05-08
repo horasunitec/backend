@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VinculacionBackend.Security
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VinculacionBackend.Specs", "VinculacionBackend.Specs\VinculacionBackend.Specs.csproj", "{09660DDC-DE0D-4EE5-90A4-388DF85316BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VinculacionBackend.Console", "VinculacionBackend.Console\VinculacionBackend.Console.csproj", "{23B9253E-010B-4E40-BD17-AABAD40E893F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{09660DDC-DE0D-4EE5-90A4-388DF85316BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09660DDC-DE0D-4EE5-90A4-388DF85316BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09660DDC-DE0D-4EE5-90A4-388DF85316BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23B9253E-010B-4E40-BD17-AABAD40E893F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23B9253E-010B-4E40-BD17-AABAD40E893F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23B9253E-010B-4E40-BD17-AABAD40E893F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23B9253E-010B-4E40-BD17-AABAD40E893F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
