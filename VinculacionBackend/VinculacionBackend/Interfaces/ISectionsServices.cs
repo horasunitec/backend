@@ -22,5 +22,6 @@ namespace VinculacionBackend.Interfaces
         IQueryable<Section> GetSectionsByProject(long projectId, string single, long userId);
         object GetSectionStudentsHour(long sectionId, long projectId);
         void RebuildSectionStudentRelationships(SectionStudentModel model);
+        IQueryable<Section> GetSectionsByPeriod(int number, int year, string single, long userId);
     }
 }

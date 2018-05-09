@@ -55,6 +55,17 @@ namespace VinculacionBackend.Controllers
             return sections;
         }
 
+        // GET: api/Sections
+        [Route("api/Sections/SectionsByPeriod/{number}/{year}")]
+        [CustomAuthorize(Roles = "Admin,Professor,Student")]
+        [EnableQuery]
+        public IQueryable<Section> GetSectionsByPeriod(int number, int year)
+        {
+            var currentUser = (CustomPrincipal)HttpContext.Current.User;
+            IQueryable<Section> sections = _sectionServices.GetSectionsByPeriod(number, year, currentUser.roles.Single(), currentUser.UserId);
+            return sections;
+        }
+
         // GET: api/Sections/5
         [Route("api/Sections/{sectionId}")]
         [ResponseType(typeof(Section))]

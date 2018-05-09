@@ -86,6 +86,19 @@ namespace VinculacionBackend.Services
             throw new UnauthorizedException("No tiene permiso");
         }
 
+        public IQueryable<Section> GetSectionsByPeriod(int number, int year, string role, long userId)
+        {
+            if (role.Equals("Admin"))
+            {
+                return _sectionsRepository.GetSectionsByPeriod(number, year);
+            }
+            else if (role.Equals("Professor"))
+            {
+                return _sectionsRepository.GetSectionsByPeriod(number, year).Where(x => x.User.Id == userId);
+            }
+            throw new UnauthorizedException("No tiene permiso");
+        }
+
         public IQueryable<Section> GetCurrentPeriodSections()
         {
             var currentPeriod = _periodsServices.GetCurrentPeriod();

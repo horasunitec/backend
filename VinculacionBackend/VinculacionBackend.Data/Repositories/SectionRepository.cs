@@ -175,6 +175,29 @@ namespace VinculacionBackend.Data.Repositories
                 Where(rel => rel.Project.Id == projectId).Select(rel => rel.Section).Include(x=>x.Period).Include(a=>a.User).Include(c=>c.Class);
         }
 
+        public IQueryable<Section> GetSectionsByPeriod(int number, int year)
+        {
+            if (number != 0 && year != 0)
+            {
+                return _db.SectionProjectsRels.Include(rel => rel.Section).Include(rel => rel.Project)
+                .Select(rel => rel.Section).Include(x => x.Period).Where(rel => rel.Period.Number == number && rel.Period.Year == year).Include(a => a.User).Include(c => c.Class);
+            }
+            else if (number !=0 && year == 0)
+            {
+                return _db.SectionProjectsRels.Include(rel => rel.Section).Include(rel => rel.Project)
+                .Select(rel => rel.Section).Include(x => x.Period).Where(rel => rel.Period.Number == number).Include(a => a.User).Include(c => c.Class);
+            }
+            else if (number == 0 && year != 0)
+            {
+                return _db.SectionProjectsRels.Include(rel => rel.Section).Include(rel => rel.Project)
+                .Select(rel => rel.Section).Include(x => x.Period).Where(rel => rel.Period.Year == year).Include(a => a.User).Include(c => c.Class);
+            }
+            else
+            {
+                return new List<Section>().AsQueryable();
+            }
+        }
+
         public IQueryable<Section> GetAllByProfessor(long userId)
         {
             return _db.Sections.Where(b => b.User.Id == userId)
