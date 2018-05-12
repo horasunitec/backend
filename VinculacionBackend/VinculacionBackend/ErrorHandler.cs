@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -78,8 +77,6 @@ namespace VinculacionBackend
 
         public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
         {
-            var logger = new LoggerServices();
-            logger.LogMessage(_httpResponseMessage.ToString());
             return Task.FromResult(_httpResponseMessage);
         }
     }
@@ -98,8 +95,6 @@ namespace VinculacionBackend
 
         public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
         {
-            var logger = new LoggerServices();
-            logger.LogMessage(_httpResponseMessage.ToString());
             return Task.FromResult(_httpResponseMessage);
         }
     }
@@ -119,8 +114,6 @@ namespace VinculacionBackend
 
         public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
         {
-            var logger = new LoggerServices();
-            logger.LogMessage(_httpResponseMessage.ToString());
             return Task.FromResult(_httpResponseMessage);
         }
     }

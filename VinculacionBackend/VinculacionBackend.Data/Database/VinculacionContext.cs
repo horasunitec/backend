@@ -21,7 +21,6 @@ namespace VinculacionBackend.Data.Database
         public DbSet<Hour> Hours { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoleRels { get; set; }
-        public DbSet<MajorUser> MajorUsersRels { get; set; }
         public DbSet<ProjectMajor> ProjectMajorRels { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
     }

@@ -65,7 +65,6 @@
     <Compile Include="Entities\Faculty.cs" />
     <Compile Include="Entities\Hour.cs" />
     <Compile Include="Entities\Major.cs" />
-    <Compile Include="Entities\MajorUser.cs" />
     <Compile Include="Entities\Period.cs" />
     <Compile Include="Entities\Project.cs" />
     <Compile Include="Entities\ProjectMajor.cs" />
@@ -99,9 +98,9 @@
     <Compile Include="Interfaces\ISectionRepository.cs" />
     <Compile Include="Interfaces\IStudentRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
-    <Compile Include="Migrations\201803171824283_Initial.cs" />
-    <Compile Include="Migrations\201803171824283_Initial.Designer.cs">
-      <DependentUpon>201803171824283_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201805120642111_Initial.cs" />
+    <Compile Include="Migrations\201805120642111_Initial.Designer.cs">
+      <DependentUpon>201805120642111_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FacultyHoursReportModel.cs" />
@@ -125,8 +124,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803171824283_Initial.resx">
-      <DependentUpon>201803171824283_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805120642111_Initial.resx">
+      <DependentUpon>201805120642111_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

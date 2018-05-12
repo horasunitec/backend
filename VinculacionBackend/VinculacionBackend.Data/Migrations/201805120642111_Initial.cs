@@ -136,20 +136,6 @@ namespace VinculacionBackend.Data.Migrations
                 .Index(t => t.Faculty_Id);
             
             CreateTable(
-                "dbo.MajorUsers",
-                c => new
-                    {
-                        Id = c.Long(nullable: false, identity: true),
-                        Major_Id = c.Long(),
-                        User_Id = c.Long(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Majors", t => t.Major_Id)
-                .ForeignKey("dbo.Users", t => t.User_Id)
-                .Index(t => t.Major_Id)
-                .Index(t => t.User_Id);
-            
-            CreateTable(
                 "dbo.ProjectMajors",
                 c => new
                     {
@@ -210,8 +196,6 @@ namespace VinculacionBackend.Data.Migrations
             DropForeignKey("dbo.SectionUsers", "Section_Id", "dbo.Sections");
             DropForeignKey("dbo.ProjectMajors", "Project_Id", "dbo.Projects");
             DropForeignKey("dbo.ProjectMajors", "Major_Id", "dbo.Majors");
-            DropForeignKey("dbo.MajorUsers", "User_Id", "dbo.Users");
-            DropForeignKey("dbo.MajorUsers", "Major_Id", "dbo.Majors");
             DropForeignKey("dbo.Hours", "User_Id", "dbo.Users");
             DropForeignKey("dbo.Hours", "SectionProject_Id", "dbo.SectionProjects");
             DropForeignKey("dbo.SectionProjects", "Section_Id", "dbo.Sections");
@@ -227,8 +211,6 @@ namespace VinculacionBackend.Data.Migrations
             DropIndex("dbo.SectionUsers", new[] { "Section_Id" });
             DropIndex("dbo.ProjectMajors", new[] { "Project_Id" });
             DropIndex("dbo.ProjectMajors", new[] { "Major_Id" });
-            DropIndex("dbo.MajorUsers", new[] { "User_Id" });
-            DropIndex("dbo.MajorUsers", new[] { "Major_Id" });
             DropIndex("dbo.Majors", new[] { "Faculty_Id" });
             DropIndex("dbo.Users", new[] { "Major_Id" });
             DropIndex("dbo.Sections", new[] { "User_Id" });
@@ -242,7 +224,6 @@ namespace VinculacionBackend.Data.Migrations
             DropTable("dbo.SectionUsers");
             DropTable("dbo.Roles");
             DropTable("dbo.ProjectMajors");
-            DropTable("dbo.MajorUsers");
             DropTable("dbo.Majors");
             DropTable("dbo.Users");
             DropTable("dbo.Periods");
