@@ -67,6 +67,38 @@ namespace VinculacionBackend.Data.Repositories
             return projects;
         }
 
+        public IQueryable<Project> GetProjectsByPeriod(int number, int year)
+        {
+            if (number != 0 && year != 0)
+            {
+                return _db.SectionProjectsRels
+                   .Include(sp => sp.Section).Include(sp => sp.Section.Period)
+                   .Include(sp => sp.Project)
+                   .Where(sp => sp.Section.Period.Number == number && sp.Section.Period.Year == year)
+                   .Select(a => a.Project);
+            }
+            else if (number != 0 && year == 0)
+            {
+                return _db.SectionProjectsRels
+                   .Include(sp => sp.Section).Include(sp => sp.Section.Period)
+                   .Include(sp => sp.Project)
+                   .Where(sp => sp.Section.Period.Number == number)
+                   .Select(a => a.Project);
+            }
+            else if (number == 0 && year != 0)
+            {
+                return _db.SectionProjectsRels
+                   .Include(sp => sp.Section).Include(sp => sp.Section.Period)
+                   .Include(sp => sp.Project)
+                   .Where(sp => sp.Section.Period.Year == year)
+                   .Select(a => a.Project);
+            }
+            else
+            {
+                return new List<Project>().AsQueryable();
+            }
+        }
+
         public Project Delete(long id)
         {
             var found = Get(id);

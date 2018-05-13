@@ -26,5 +26,6 @@ namespace VinculacionBackend.Interfaces
         IQueryable<PeriodReportModel> CreatePeriodReport(int year, int period);
         void AssignProjectsToSection(ProjectsSectionModel model);
         IQueryable<Project> GetProjectsBySection(long sectionId);
+        IQueryable<Project> GetProjectsByPeriod(int number, int year, string role);
     }
 }

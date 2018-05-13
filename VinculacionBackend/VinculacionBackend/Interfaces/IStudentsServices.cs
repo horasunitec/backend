@@ -33,5 +33,6 @@ namespace VinculacionBackend.Interfaces
         void ChangePassword(StudentChangePasswordModel model);
         void ResetPasswordStudent(ResetPasswordModel model);
         List<StudentReportModel> CreateHourNumberReport(int year);
+        IEnumerable<FiniquitoUserModel> GetPendingStudentsFiniquitoByYear(int year);
     }
 }

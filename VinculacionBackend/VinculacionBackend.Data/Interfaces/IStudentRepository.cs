@@ -27,5 +27,6 @@ namespace VinculacionBackend.Data.Interfaces
         void InsertMany(IList<User> students);
         IQueryable<User> GetFinalized();
         IQueryable<User> GetNonFinalized();
+        IQueryable<User> GetNonFinalizedByYear(int year);
     }
 }

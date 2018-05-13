@@ -34,7 +34,16 @@ namespace VinculacionBackend.Controllers
             return _services.All();
         }
 
-
+        // GET: api/Projects/ProjectsByPeriod
+        [Route("api/Projects/ProjectsByPeriod/{number}/{year}")]
+        [CustomAuthorize(Roles = "Admin,Professor,Student")]
+        [EnableQuery]
+        public IQueryable<Project> GetProjectsByPeriod(int number, int year)
+        {
+            var currentUser = (CustomPrincipal)HttpContext.Current.User;
+            IQueryable<Project> projects = _services.GetProjectsByPeriod(number, year, currentUser.roles.Single());
+            return projects;
+        }
 
         // GET: api/Projects
         [Route("api/Projects/ProjectsByUser")]

@@ -239,18 +239,20 @@ namespace VinculacionBackend.Services
             foreach (var student in students)
             {
                 int hourTotal = 0;
-                bool validYear = false;
+                //bool validYear = false;
                 foreach (var hour in hours)
                 {
                     if (hour.User.Id == student.Id)
                     {
                         hourTotal += hour.Amount;
-                        if (hour.SectionProject.Section.Period.Year >= 2016)
-                            validYear = true;
+                        //if (hour.SectionProject.Section.Period.Year >= 2016)
+                        //    validYear = true;
                     }
                 }
 
-                if (hourTotal >= 100 && validYear)
+                if (hourTotal >= 100 
+                    //&& validYear
+                    )
                 {
                     toReturn.Add(new FiniquitoUserModel
                     {
@@ -265,6 +267,52 @@ namespace VinculacionBackend.Services
                         ModificationDate = student.ModificationDate,
                         Password = student.Password,
                         Status =  student.Status,
+                        Hours = hourTotal
+                    });
+                }
+            }
+
+            return toReturn;
+        }
+
+        public IEnumerable<FiniquitoUserModel> GetPendingStudentsFiniquitoByYear(int year)
+        {
+            var students = _studentRepository.GetNonFinalizedByYear(year).ToList();
+            var hours = _hourRepository.GetAll().ToList();
+
+            var toReturn = new List<FiniquitoUserModel>();
+
+            foreach (var student in students)
+            {
+                int hourTotal = 0;
+                //bool validYear = false;
+                foreach (var hour in hours)
+                {
+                    if (hour.User.Id == student.Id)
+                    {
+                        hourTotal += hour.Amount;
+                        //if (hour.SectionProject.Section.Period.Year >= 2016)
+                        //    validYear = true;
+                    }
+                }
+
+                if (hourTotal >= 100
+                    //&& validYear
+                    )
+                {
+                    toReturn.Add(new FiniquitoUserModel
+                    {
+                        Id = student.Id,
+                        AccountId = student.AccountId,
+                        Major = student.Major,
+                        Name = student.Name,
+                        Campus = student.Campus,
+                        CreationDate = student.CreationDate,
+                        Email = student.Email,
+                        Finiquiteado = student.Finiquiteado,
+                        ModificationDate = student.ModificationDate,
+                        Password = student.Password,
+                        Status = student.Status,
                         Hours = hourTotal
                     });
                 }

@@ -30,5 +30,6 @@ namespace VinculacionBackend.Data.Interfaces
         SectionProject GetSectionProject(long projectId, long sectionId);
         string GetNextProjectCode(Period currentPeriod);
         void Update(Project ent, List<string> majorIds);
+        IQueryable<Project> GetProjectsByPeriod(int number, int year);
     }
 }

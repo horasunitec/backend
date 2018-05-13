@@ -63,7 +63,17 @@ namespace VinculacionBackend.Services
         {
             return _projectRepository.GetAll();
         }
-        
+
+        public IQueryable<Project> GetProjectsByPeriod(int number, int year, string role)
+        {
+            if (role.Equals("Admin"))
+            {
+                return _projectRepository.GetProjectsByPeriod(number, year);
+            }
+            throw new UnauthorizedException("No tiene permiso");
+        }
+
+
         public int  GetProjectsTotalByMajor(Major major)
         {
             var currentPeriod = _periodRepository.GetCurrent();

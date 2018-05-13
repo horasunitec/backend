@@ -94,6 +94,13 @@ namespace VinculacionBackend.Controllers
             return _studentsServices.GetPendingStudentsFiniquito();
         }
 
+        [Route("api/Students/PendingFiniquitoStudentsByYear/{year}")]
+        [EnableQuery]
+        public IEnumerable<FiniquitoUserModel> GetStudentsPendingFiniquitoByYear(int year)
+        {
+            return _studentsServices.GetPendingStudentsFiniquitoByYear(year);
+        }
+
         [Route("api/Students/FinalizedFiniquitoStudents")]
         [EnableQuery]
         public IEnumerable<FiniquitoUserModel> GetStudentsFinalizedFiniquito()

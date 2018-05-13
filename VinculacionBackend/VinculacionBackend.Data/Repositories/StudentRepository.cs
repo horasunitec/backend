@@ -314,6 +314,14 @@ namespace VinculacionBackend.Data.Repositories
                 Insert(student);
             }
         }
+
+        public IQueryable<User> GetNonFinalizedByYear(int year)
+        {
+            var rels = GetUserRoleRelationships();
+            var students = _db.Users.Include(m => m.Major).Include(f => f.Major.Faculty).Where(x => rels.Any(y => y.User.Id == x.Id))
+                .Where(y => !y.Finiquiteado && y.AccountId.StartsWith("2" + year.ToString().Remove(0,2)));
+            return students;
+        }
     }
 
     public class StudentCountModel
