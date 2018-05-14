@@ -78,12 +78,6 @@ To perform a new migration on the existing database you simply need to use the c
 * Finiquiteado(`bool`): Flag to indicate if a student's hours have been settled (Has enough hours and has signed off on his worked hours).
 * Status(`Status`): Indicates the current state of an account.
 
-### MajorUser
-Entity that handles the relationships between Majors and Users
-* Id(`long`): Unique database identifier.
-* Major(`Major`): Major to which the User belongs.
-* User(`User`): User that forms part of a specific major.
-
 ### ProjectMajor
 Entity that handles the relationship between projects and majors.
 * Id(`long`): Unique database identifier.
