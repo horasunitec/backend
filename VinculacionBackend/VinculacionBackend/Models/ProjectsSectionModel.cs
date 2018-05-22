@@ -5,9 +5,9 @@ namespace VinculacionBackend.Models
 {
     public class ProjectsSectionModel
     {
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Lista de proyectos requerida")]
         public List<long> ProjectIds { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Seccion requerida")]
         public long SectionId { get; set; }
     }
 }

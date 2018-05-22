@@ -4,9 +4,9 @@ namespace VinculacionBackend.Models
 {
     public class ClassEntryModel
     {
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Nombre requerido")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Codigo requerido")]
         public string Code { get; set; }
     }
 }

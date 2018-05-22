@@ -5,17 +5,17 @@ namespace VinculacionBackend.Models
 {
     public class UserUpdateModel
     {
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Numero de cuenta requerido")]
         public string AccountId { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Nombre requerido")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Contraseña requerida")]
         public string Password { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Carrera requerida")]
         public string MajorId { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Campus requerido")]
         public string Campus { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Correo electronico requerido")]
         [ValidDomain(ErrorMessage = "Correo no valido")]
         public string Email { get; set; }
     }

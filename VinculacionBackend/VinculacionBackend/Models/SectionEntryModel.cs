@@ -4,11 +4,11 @@ namespace VinculacionBackend.Models
 {
     public class SectionEntryModel
     {
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Codigo requerido")]
         public string Code { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Clase requerido")]
         public long ClassId { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Docente requerido")]
         public string ProffesorAccountId { get; set; }
     }
 }

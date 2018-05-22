@@ -5,11 +5,11 @@ namespace VinculacionBackend.Models
 {
     public class HourCollectionEntryModel
     {
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Seccion requerida")]
         public long SectionId { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Proyecto requerido")]
         public long ProjectId { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Listado de Horas requerido")]
         public List<StudentHourEntry> StudentsHour { get; set; }
 
     }

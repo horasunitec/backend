@@ -4,7 +4,7 @@ namespace VinculacionBackend.Models
 {
     public class VerifiedModel
     {
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Numero de Cuenta requerido")]
         public string AccountId { get; set; }
     }
 }

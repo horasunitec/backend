@@ -4,10 +4,10 @@ namespace VinculacionBackend.Models
 {
     public class VerifiedProfessorModel
     {
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Numero de Cuentabrequerido")]
         public string AccountId { get; set; }
 
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Contraseña requerida")]
         public string Password { get; set; }
     }
 }

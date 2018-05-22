@@ -4,7 +4,7 @@ namespace VinculacionBackend.Models
 {
     public class EmailModel
     {
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Email requerido")]
         public string Email { get; set; }
     }
 }

@@ -4,13 +4,13 @@ namespace VinculacionBackend.Models
 {
     public class PeriodEntryModel
     {
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Numero de periodo requerido")]
         public int Number { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Año de periodo requerido")]
         public int Year { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Fecha Desde requerida")]
         public string FromDate { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Fecha Hasta requerida")]
         public string ToDate { get; set; }
     }
 }

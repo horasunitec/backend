@@ -5,13 +5,13 @@ namespace VinculacionBackend.Models
 {
     public class SectionProjectEntryModel
     {
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Seccion requerida")]
         public long SectiontId { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Lista de proyectos requerida")]
         public IList<long> ProjectIds { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Descripcion requerida")]
         public string Description { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Costo requerido")]
         public double Cost { get; set; }
     }
 }

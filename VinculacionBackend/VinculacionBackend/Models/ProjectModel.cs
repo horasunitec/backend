@@ -6,14 +6,14 @@ namespace VinculacionBackend.Models
 {
     public class ProjectModel
     {
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Nombre requerido")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Descripcion requerido")]
         public string Description { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Carrera requerida")]
         [MajorListIsNotEmpty(ErrorMessage = "*lista no puede ir vacia")]
         public List<string> MajorIds { get; set; }
-        [Required(ErrorMessage = "*requerido")]
+        [Required(ErrorMessage = "*Organizacion Beneficiada requerida")]
         public string BeneficiarieOrganization {get;set;}
     }
 }
