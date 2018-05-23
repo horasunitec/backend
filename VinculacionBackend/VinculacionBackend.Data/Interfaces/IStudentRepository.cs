@@ -28,5 +28,6 @@ namespace VinculacionBackend.Data.Interfaces
         IQueryable<User> GetFinalized();
         IQueryable<User> GetNonFinalized();
         IQueryable<User> GetNonFinalizedByYear(int year);
+        IQueryable<User> GetStudentsByYear(int year);
     }
 }

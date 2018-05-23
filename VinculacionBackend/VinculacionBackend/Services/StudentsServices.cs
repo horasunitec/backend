@@ -129,6 +129,11 @@ namespace VinculacionBackend.Services
             return _studentRepository.GetAll();
         }
 
+        public IQueryable<User> GetStudentsByYear(int year)
+        {
+            return _studentRepository.GetStudentsByYear(year);
+        }
+
         public int GetStudentHours(string accountId)
         {
            return _studentRepository.GetStudentHours(accountId);

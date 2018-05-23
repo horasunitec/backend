@@ -39,6 +39,17 @@ namespace VinculacionBackend.Data.Repositories
             return studentHours;
         }
 
+        public IQueryable<User> GetStudentsByYear(int year)
+        {
+            var rels = GetUserRoleRelationships();
+            var students = _db.Users
+                            .Include(m => m.Major)
+                            .Include(f => f.Major.Faculty)
+                                .Where(x => rels.Any(y => y.User.Id == x.Id) 
+                                        && y.User.AccountId.StartsWith("2" + year.ToString().Remove(0,2)));
+            return students;
+        }
+
         public User DeleteByAccountNumber(string accountNumber)
         {
             var found = GetByAccountNumber(accountNumber);

@@ -34,5 +34,6 @@ namespace VinculacionBackend.Interfaces
         void ResetPasswordStudent(ResetPasswordModel model);
         List<StudentReportModel> CreateHourNumberReport(int year);
         IEnumerable<FiniquitoUserModel> GetPendingStudentsFiniquitoByYear(int year);
+        IQueryable<User> GetStudentsByYear(int year);
     }
 }
