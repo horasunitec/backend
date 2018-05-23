@@ -46,14 +46,6 @@ namespace VinculacionBackend.Controllers
             return _professorsServices.GetProfessors();
         }
 
-        [Route("api/Students/GetStudentsByYear/{year}")]
-        [CustomAuthorize(Roles = "Admin,Professor")]
-        [EnableQuery]
-        public IQueryable<User> GetStudentsByYear(int year)
-        {
-            return _studentsServices.GetStudentsByYear(year);
-        }
-
         [ResponseType(typeof(User))]
         [Route("api/Professors/EnableProfessor")]
         [ValidateModel]

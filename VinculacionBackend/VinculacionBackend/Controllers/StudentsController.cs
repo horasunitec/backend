@@ -49,6 +49,14 @@ namespace VinculacionBackend.Controllers
             return _studentsServices.AllUsers();
         }
 
+        [Route("api/Students/GetStudentsByYear/{year}")]
+        [CustomAuthorize(Roles = "Admin,Professor")]
+        [EnableQuery]
+        public IQueryable<User> GetStudentsByYear(int year)
+        {
+            return _studentsServices.GetStudentsByYear(year);
+        }
+
         // GET: api/Students/5
         [ResponseType(typeof(User))]
         [Route("api/Students/{accountId}")]
