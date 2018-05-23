@@ -14,5 +14,8 @@ namespace VinculacionBackend.Interfaces
         IQueryable<User> GetProfessorsAlpha();
         User UpdateProfessor(string accountId, ProfessorUpdateModel model);
         void VerifyProfessor(VerifiedProfessorModel model);
+        User UpdateProfessor(string accountId, EnableProfessorModel model);
+        object FindNullable(string accountId);
+        User ActivateUser(string accountId);
     }
 }

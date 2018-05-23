@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Web;
-using System.Web.OData.Query;
-using Newtonsoft.Json;
-using Spire.Pdf.Exporting.XPS.Schema;
 using VinculacionBackend.Data.Entities;
 using VinculacionBackend.Data.Interfaces;
 using VinculacionBackend.Data.Models;
-using VinculacionBackend.Data.Repositories;
 using VinculacionBackend.Interfaces;
 using VinculacionBackend.Models;
 

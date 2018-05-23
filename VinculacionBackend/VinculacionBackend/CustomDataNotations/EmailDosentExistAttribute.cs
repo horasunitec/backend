@@ -15,7 +15,4 @@ namespace VinculacionBackend.CustomDataNotations
             return Enumerable.Any(context.Users, u => email.Equals(u.Email));
         }
     }
-
-
-
 }

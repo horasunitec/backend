@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -9,7 +8,6 @@ using VinculacionBackend.Data.Repositories;
 using VinculacionBackend.Interfaces;
 using VinculacionBackend.Models;
 using VinculacionBackend.Reports;
-using DataTable = System.Data.DataTable;
 
 namespace VinculacionBackend.Services
 {

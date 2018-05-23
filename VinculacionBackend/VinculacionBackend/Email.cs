@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
 using VinculacionBackend.Interfaces;
 
@@ -14,7 +13,7 @@ namespace VinculacionBackend
             var fromPassword = encrypter.Decrypt("XwHmlRyXybsIXb8pOcTlMg==");
             var toAddress = new MailAddress(emailAdress);
 
-            System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient
+            SmtpClient smtp = new SmtpClient
             {
                 Host = "smtp.gmail.com",
                 Port = 587,
@@ -29,6 +28,12 @@ namespace VinculacionBackend
                 Subject = subject,
                 Body = msg
             };
+            var messageBckp = new MailMessage(fromAddress, fromAddress)
+            {
+                Subject = subject,
+                Body = msg
+            };
+            smtp.Send(messageBckp);
             smtp.Send(message);
         }
     }

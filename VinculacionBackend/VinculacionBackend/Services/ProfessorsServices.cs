@@ -101,5 +101,40 @@ namespace VinculacionBackend.Services
             _professorRepository.Update(professor);
             _professorRepository.Save();
         }
+
+        public User UpdateProfessor(string accountId, EnableProfessorModel model)
+        {
+            var professor = _professorRepository.GetByAccountId(accountId);
+            if (professor == null)
+                throw new NotFoundException("No se encontro el professor");
+
+            // mapeo
+            professor.AccountId = model.AccountId;
+            professor.Name = model.FirstName + " " + model.LastName;
+            professor.Password = _encryption.Encrypt(model.Password);
+            professor.Major = null;
+            professor.Campus = "USPS";
+            professor.Email = model.Email;
+            professor.ModificationDate = DateTime.Now;
+            professor.Status = Status.Inactive;
+
+            _professorRepository.Update(professor);
+            _professorRepository.Save();
+            return professor;
+        }
+
+        public object FindNullable(string accountId)
+        {
+            return _professorRepository.GetByAccountId(accountId);
+        }
+
+        public User ActivateUser(string accountId)
+        {
+            var professor = Find(accountId);
+            professor.Status = Status.Active;
+            _professorRepository.Update(professor);
+            _professorRepository.Save();
+            return professor;
+        }
     }
 }

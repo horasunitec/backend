@@ -15,15 +15,13 @@ namespace VinculacionBackend.Services
         private readonly IProfessorsServices _professorsServices;
         private readonly IClassesServices _classServices;
         private readonly IPeriodsServices _periodsServices;
-        private readonly IStudentsServices _studentServices;
 
         public SectionsServices(ISectionRepository sectionsRepository, IProfessorsServices professorsServices, IClassesServices classServices, IPeriodsServices periodsServices)
         {
             _sectionsRepository = sectionsRepository;
             _professorsServices = professorsServices;
             _classServices = classServices;
-            _periodsServices = periodsServices;
-            
+            _periodsServices = periodsServices;            
         }
 
         public IQueryable<Section> All()

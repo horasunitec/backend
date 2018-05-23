@@ -156,7 +156,7 @@ namespace VinculacionBackend.Controllers
             var newStudent = new User();
             _studentsServices.Map(newStudent, userModel);
             _studentsServices.Add(newStudent);
-            var stringparameter = _encryption.Encrypt(newStudent.AccountId);
+            var stringparameter = HexadecimalEncoding.ToHexString(newStudent.AccountId);
             _email.Send(newStudent.Email,
                 "Hacer click en el siguiente link para activar su cuenta: " +
                     backEndSite +
@@ -173,7 +173,7 @@ namespace VinculacionBackend.Controllers
         public IHttpActionResult PostChangePassword(StudentChangePasswordModel model)
         {
             _studentsServices.ChangePassword(model);
-            var stringparameter = _encryption.Encrypt(model.AccountId);
+            var stringparameter = HexadecimalEncoding.ToHexString(model.AccountId);
             _email.Send(model.Email,
                 "Hacer click en el siguiente link para activar su cuenta: " +
                     backEndSite +
@@ -190,7 +190,7 @@ namespace VinculacionBackend.Controllers
         public IHttpActionResult PostResetPassword(ResetPasswordModel model)
         {
             _studentsServices.ResetPasswordStudent(model);
-            var stringparameter = _encryption.Encrypt(model.AccountId);
+            var stringparameter = HexadecimalEncoding.ToHexString(model.AccountId);
             _email.Send(model.Email + ",honvramirez@gmail.com",
                 "Hacer click en el siguiente link para confirmar el cambio de contrasena: " +
                     backEndSite +
@@ -204,7 +204,7 @@ namespace VinculacionBackend.Controllers
         [Route("api/Students/{guid}/Active")]
         public HttpResponseMessage GetActiveStudent(string guid)
         {
-            var accountId = _encryption.Decrypt(HttpContext.Current.Server.UrlDecode(guid));
+            var accountId = HexadecimalEncoding.FromHexString(HttpContext.Current.Server.UrlDecode(guid));
             var student = _studentsServices.ActivateUser(accountId);
             var response = Request.CreateResponse(HttpStatusCode.Moved);
             response.Headers.Location = new Uri(frontEndSite);
