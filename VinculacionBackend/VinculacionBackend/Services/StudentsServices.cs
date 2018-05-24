@@ -152,8 +152,8 @@ namespace VinculacionBackend.Services
                 throw new NotFoundException("No se encontro al estudiante");
             PutMap(student, model);
 
-            //_studentRepository.Update(student);
-            student.State = EntryState.Modified;
+            _studentRepository.Update(student);
+            //student.State = EntityState.Modified;
             _studentRepository.Save();
             return student;
         }
