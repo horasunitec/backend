@@ -151,7 +151,7 @@ namespace VinculacionBackend.Services
             PutMap(student, model);
 
             _studentRepository.Update(student);
-            //student.State = EntryState.Modified;
+            //student.State = EntityState.Modified;
             _studentRepository.Save();
             return student;
         }
