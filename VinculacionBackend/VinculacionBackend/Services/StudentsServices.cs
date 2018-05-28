@@ -61,6 +61,8 @@ namespace VinculacionBackend.Services
         {
             student.AccountId = userModel.AccountId;
             student.Name = userModel.Name;
+            if (student.Major.MajorId != userModel.MajorId)
+                student.Major = _majorServices.Find(userModel.MajorId);
             student.Campus = userModel.Campus;
             student.Email = userModel.Email;
             student.ModificationDate = DateTime.Now;
