@@ -180,9 +180,10 @@ namespace VinculacionBackend.Data.Repositories
 
         public void Update(User ent)
         {
-            _db.Entry(ent.Major.Faculty).State = EntityState.Modified;
-            _db.Entry(ent.Major).State = EntityState.Modified;
+            // _db.Entry(ent.Major.Faculty).State = EntityState.Modified;
+            // _db.Entry(ent.Major).State = EntityState.Modified;
             _db.Entry(ent).State = EntityState.Modified;
+            _db.Users.Attach(ent);
             //_db.Majors.Attach(ent.Major);
             //_db.Users.AddOrUpdate(ent);
             
