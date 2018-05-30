@@ -7,10 +7,9 @@ using TechTalk.SpecFlow.Assist;
 using VinculacionBackend.Data.Entities;
 using VinculacionBackend.Data.Interfaces;
 using VinculacionBackend.Data.Models;
-using VinculacionBackend.Interfaces;
 using VinculacionBackend.Models;
 using VinculacionBackend.Services;
-using System.Net.Http;
+using VinculacionBackend.Data.Repositories;
 
 namespace VinculacionBackend.Specs.Features.Reports
 {
@@ -31,7 +30,7 @@ namespace VinculacionBackend.Specs.Features.Reports
         private Section _section;
         private List<ProjectByMajorEntryModel> _projectsByMajorReport;
         private List<FacultyHoursReportEntryModel> _hoursReport;
-        private  List<FacultyCostsReportEntry> _facultiesCostReport;
+        private  List<CostReportTDO> _facultiesCostReport;
         private List<ProjectsByClassEntryModel> _projectsByClassReport;
         public FacultiesCostReportSteps()
         {
@@ -46,19 +45,6 @@ namespace VinculacionBackend.Specs.Features.Reports
             _projectServices = new ProjectServices(_projectRepositoryMock.Object, _majorRepositoryMock.Object, _classRepositoryMock.Object, _periodRepositoryMock.Object,_sectionProjectRepositoryMock.Object);
             _facultiesServices = new FacultiesServices(_facultyRepositoryMock.Object,_majorRepositoryMock.Object,
                                                         _projectRepositoryMock.Object,_studentRepositoryMock.Object);
-        }
-
-        [When(@"I execute the faculties cost report")]
-        public void WhenIExecuteTheFacultiesCostReport()
-        {
-            _facultiesCostReport = _facultiesServices.CreateFacultiesCostReport(_year);
-
-        }
-
-        [Then(@"the faculties cost report should be")]
-        public void ThenTheFacultiesCostReportShouldBe(Table table)
-        {
-            table.CompareToSet(_facultiesCostReport.AsEnumerable());
         }
 
         [Given(@"I have this faculties")]
