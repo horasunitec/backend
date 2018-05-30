@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -43,6 +44,13 @@ namespace VinculacionBackend.Data.Repositories
         {
             return _context.Faculties;
         }
+
+        public List<CostReportTDO> GetCostsReport(int year)
+        {
+            var yearParameter = new SqlParameter("@Anio", year);
+            var costReport = _context.Database.SqlQuery<CostReportTDO>("dbo.FacultyByPeriodReport @Anio",yearParameter).ToList();
+            return costReport;
+        }
         //TODO: Pasar a un query
         public int GetFacultyHours(long id, int year)
         {
@@ -58,5 +66,16 @@ namespace VinculacionBackend.Data.Repositories
             return total;
         }
 
+    }
+
+    public class CostReportTDO
+    {
+        public string Facultad { get; set; }
+        public string Periodo1 { get; set; }
+        public string Periodo2 { get; set; }
+        //public int Periodo3 { get; set; }
+        public string Periodo4 { get; set; }
+        public string Periodo5 { get; set; }
+        public string Total { get; set; }
     }
 }

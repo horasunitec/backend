@@ -13,5 +13,6 @@ namespace VinculacionBackend.Data.Interfaces
         List<FacultyProjectCostModel> GetFacultyCosts(long id, int period, int year);
         IQueryable<Faculty> GetAll();
         int GetFacultyHours(long id, int year);
+        List<CostReportTDO> GetCostsReport(int year);
     }
 }

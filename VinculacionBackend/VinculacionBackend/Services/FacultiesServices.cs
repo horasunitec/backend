@@ -3,6 +3,7 @@ using System.Linq;
 using VinculacionBackend.Data.Entities;
 using VinculacionBackend.Data.Interfaces;
 using VinculacionBackend.Data.Models;
+using VinculacionBackend.Data.Repositories;
 using VinculacionBackend.Interfaces;
 using VinculacionBackend.Models;
 
@@ -75,27 +76,9 @@ namespace VinculacionBackend.Services
         }
 
       
-        public List<FacultyCostsReportEntry> CreateFacultiesCostReport(int year)
+        public List<CostReportTDO> CreateFacultiesCostReport(int year)
         {
-            var facultiesCostsReport = new List<FacultyCostsReportEntry>();
-            var faculties = _facultyRepository.GetAll().ToList();
-            foreach (var f in faculties)
-            {
-                var FacultyCosts = GetFacultiesCosts(f,year);
-                foreach (var key in FacultyCosts.Keys)
-                {
-                    facultiesCostsReport.Add(new FacultyCostsReportEntry
-                    {
-                        Facultad = key,
-                        Periodo1 = FacultyCosts[key].ElementAt(0).Cost,
-                        Periodo2 = FacultyCosts[key].ElementAt(1).Cost,
-                        Periodo3 = FacultyCosts[key].ElementAt(2).Cost,
-                        Periodo5 = FacultyCosts[key].ElementAt(3).Cost
-                    });
-
-                }
-            }
-
+            var facultiesCostsReport =_facultyRepository.GetCostsReport(year);
             return facultiesCostsReport;
         }
 
