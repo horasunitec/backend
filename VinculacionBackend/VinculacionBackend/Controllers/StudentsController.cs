@@ -31,13 +31,15 @@ namespace VinculacionBackend.Controllers
         private readonly IHoursServices _hoursServices;
         private readonly IEmail _email;
         private readonly IEncryption _encryption;
+        private readonly IMajorsServices _majorServices;
 
-        public StudentsController(IStudentsServices studentServices, IEmail email, IEncryption encryption, IHoursServices hoursServices)
+        public StudentsController(IStudentsServices studentServices, IEmail email, IEncryption encryption, IHoursServices hoursServices, IMajorsServices majorServices)
         {
             _studentsServices = studentServices;
             _email = email;
             _encryption = encryption;
             _hoursServices = hoursServices;
+            _majorServices = majorServices;
         }
 
         // GET: api/Students
@@ -178,17 +180,66 @@ namespace VinculacionBackend.Controllers
         [ResponseType(typeof(User))]
         [Route("api/Students/EnableStudent")]
         [ValidateModel]
-        public IHttpActionResult PostChangePassword(StudentChangePasswordModel model)
+        public IHttpActionResult PostChangePassword(EnableStudentModel model)
         {
-            _studentsServices.ChangePassword(model);
-            var stringparameter = HexadecimalEncoding.ToHexString(model.AccountId);
-            _email.Send(model.Email,
-                "Hacer click en el siguiente link para activar su cuenta: " +
-                    backEndSite +
-                    "/api/Students/" + HttpContext.Current.Server.UrlEncode(stringparameter) +
-                    "/Active",
-                "Vinculación");
-            return Ok();
+            var student = _studentsServices.FindNullable(model.AccountId);
+            if (student != null)
+            {
+                if (((User)student).Status == 0)
+                {
+                    var updatedStudent = _studentsServices.UpdateStudent(model.AccountId, model);
+
+                    // Send confirmation email
+
+                    var encryptedAccountId = HexadecimalEncoding.ToHexString(model.AccountId);
+                    _email.Send(model.Email,
+                        "Hacer click en el siguiente link para activar su cuenta: " +
+                            backEndSite +
+                            "/api/Students/" + HttpContext.Current.Server.UrlEncode(encryptedAccountId) + "/Active",
+                        "Vinculación");
+                    return Ok();
+                }
+                else
+                {
+                    throw new Exception("account is already active");
+                }
+            }
+            else
+            {
+                var newStudent = new User();
+
+                //mapeo
+                newStudent.AccountId = model.AccountId;
+                newStudent.Email = model.Email;
+                newStudent.Password = _encryption.Encrypt(model.Password);
+                newStudent.Name = model.FirstName + " " + model.LastName;
+                newStudent.Major = _majorServices.Find(model.MajorId);
+                newStudent.Campus = "USPS";
+                newStudent.CreationDate = DateTime.Now;
+                newStudent.ModificationDate = DateTime.Now;
+                newStudent.Status = Data.Enums.Status.Inactive;
+                newStudent.Finiquiteado = false;
+
+                _studentsServices.Add(newStudent);
+
+                // Send confirmation email
+                var encryptedAccountId = HexadecimalEncoding.ToHexString(model.AccountId);
+                _email.Send(model.Email,
+                        "Hacer click en el siguiente link para activar su cuenta: " +
+                            backEndSite +
+                            "/api/Students/" + HttpContext.Current.Server.UrlEncode(encryptedAccountId) + "/Active",
+                        "Vinculación");
+                return Ok();
+            }
+            //_studentsServices.ChangePassword(model);
+            //var stringparameter = HexadecimalEncoding.ToHexString(model.AccountId);
+            //_email.Send(model.Email,
+            //    "Hacer click en el siguiente link para activar su cuenta: " +
+            //        backEndSite +
+            //        "/api/Students/" + HttpContext.Current.Server.UrlEncode(stringparameter) +
+            //        "/Active",
+            //    "Vinculación");
+            //return Ok();
         }
 
 

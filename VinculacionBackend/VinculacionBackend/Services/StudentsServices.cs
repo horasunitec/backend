@@ -443,5 +443,31 @@ namespace VinculacionBackend.Services
                           };
             return results.AsQueryable();
         }
+
+        public object FindNullable(string accountId)
+        {
+            return _studentRepository.GetByAccountNumber(accountId);
+        }
+
+        public object UpdateStudent(string accountId, EnableStudentModel model)
+        {
+            var student = _studentRepository.GetByAccountNumber(accountId);
+            if (student == null)
+                throw new NotFoundException("No se encontro el professor");
+
+            // mapeo
+            student.AccountId = model.AccountId;
+            student.Name = model.FirstName + " " + model.LastName;
+            student.Password = _encryption.Encrypt(model.Password);
+            //student.Major = _majorServices.Find(model.MajorId);
+            student.Campus = "USPS";
+            student.Email = model.Email;
+            student.ModificationDate = DateTime.Now;
+            student.Status = Status.Inactive;
+
+            _studentRepository.Update(student);
+            _studentRepository.Save();
+            return student;
+        }
     }
 }

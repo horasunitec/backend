@@ -35,5 +35,7 @@ namespace VinculacionBackend.Interfaces
         List<StudentReportModel> CreateHourNumberReport(int year);
         IEnumerable<FiniquitoUserModel> GetPendingStudentsFiniquitoByYear(int year);
         IQueryable<User> GetStudentsByYear(int year);
+        object FindNullable(string accountId);
+        object UpdateStudent(string accountId, EnableStudentModel model);
     }
 }

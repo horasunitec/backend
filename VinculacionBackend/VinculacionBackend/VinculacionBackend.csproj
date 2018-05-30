@@ -272,6 +272,7 @@
     <Compile Include="HexadecimalEncoding.cs" />
     <Compile Include="Interfaces\ILoggerServices.cs" />
     <Compile Include="Models\EnableProfessorModel.cs" />
+    <Compile Include="Models\EnableStudentModel.cs" />
     <Compile Include="Models\ResetPasswordModel.cs" />
     <Compile Include="Models\ProfessorUpdateModel.cs" />
     <Compile Include="Models\UserUpdateModel.cs" />
