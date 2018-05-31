@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Net.Http.Headers;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -40,7 +41,7 @@ namespace VinculacionBackend.Controllers
             if (!string.IsNullOrEmpty(fileName))
             {
                 string resourcesPath = "/Resources/";
-                string fullPath = AppDomain.CurrentDomain.BaseDirectory + resourcesPath + "/" + fileName;
+                string fullPath =  HttpContext.Current.Server.MapPath("~") + resourcesPath + "/" + fileName;
                 return fullPath;
                 // if (File.Exists(fullPath))
                 // {
