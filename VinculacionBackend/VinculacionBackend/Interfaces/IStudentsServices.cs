@@ -36,6 +36,6 @@ namespace VinculacionBackend.Interfaces
         IEnumerable<FiniquitoUserModel> GetPendingStudentsFiniquitoByYear(int year);
         IQueryable<User> GetStudentsByYear(int year);
         object FindNullable(string accountId);
-        object UpdateStudent(string accountId, EnableStudentModel model);
+        User UpdateStudent(string accountId, EnableStudentModel model);
     }
 }

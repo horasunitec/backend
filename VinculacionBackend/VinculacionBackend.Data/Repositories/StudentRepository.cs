@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Data.SqlClient;
 using System.Linq;
 using VinculacionBackend.Data.Database;
 using VinculacionBackend.Data.Entities;
@@ -180,16 +181,24 @@ namespace VinculacionBackend.Data.Repositories
 
         public void Update(User ent)
         {
-            // _db.Entry(ent.Major.Faculty).State = EntityState.Modified;
-            //_db.Entry(ent.Major).State = EntityState.Modified;
-            //_db.Entry(ent).State = EntityState.Modified;
-            //_db.Majors.Attach(ent.Major);
-            //_db.Users.AddOrUpdate(ent);
+            var sql = @"Update [Users] 
+                        SET Name = @Name,
+                            Password = @Password,
+                            Campus = @Campus,
+                            Email = @Email,
+                            ModificationDate = @ModificationDate,
+                            Major_Id = @Major_Id
+                        WHERE AccountId = @AccountId";
 
-            _db.Majors.Attach(ent.Major);
-            _db.Entry(ent).State = EntityState.Modified;
-            _db.Users.AddOrUpdate(ent);
-
+            _db.Database.ExecuteSqlCommand(sql,
+                new SqlParameter("@Name", ent.Name),
+                new SqlParameter("@Password", ent.Password),
+                new SqlParameter("@Campus", ent.Campus),
+                new SqlParameter("@Email", ent.Email),
+                new SqlParameter("@ModificationDate", ent.ModificationDate),
+                new SqlParameter("@Major_Id", ent.Major.Id),
+                new SqlParameter("@AccountId", ent.AccountId)
+                );
         }
 
         private IEnumerable<UserRole> GetUserRoleRelationships()

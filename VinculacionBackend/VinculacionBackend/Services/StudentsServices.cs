@@ -145,19 +145,6 @@ namespace VinculacionBackend.Services
             return student;
         }
 
-        public User UpdateStudent(string accountId, UserUpdateModel model)
-        {
-            var student = _studentRepository.GetByAccountNumber(accountId);
-            if (student == null)
-                throw new NotFoundException("No se encontro al estudiante");
-            PutMap(student, model);
-
-            _studentRepository.Update(student);
-            //student.State = EntityState.Modified;
-            _studentRepository.Save();
-            return student;
-        }
-
         public void ResetPasswordStudent(ResetPasswordModel model)
         {
             var student = _studentRepository.GetByAccountNumber(model.AccountId);
@@ -449,7 +436,7 @@ namespace VinculacionBackend.Services
             return _studentRepository.GetByAccountNumber(accountId);
         }
 
-        public object UpdateStudent(string accountId, EnableStudentModel model)
+        public User UpdateStudent(string accountId, EnableStudentModel model)
         {
             var student = _studentRepository.GetByAccountNumber(accountId);
             if (student == null)
@@ -459,14 +446,25 @@ namespace VinculacionBackend.Services
             student.AccountId = model.AccountId;
             student.Name = model.FirstName + " " + model.LastName;
             student.Password = _encryption.Encrypt(model.Password);
-            //student.Major = _majorServices.Find(model.MajorId);
+            student.Major = _majorServices.Find(model.MajorId);
             student.Campus = "USPS";
             student.Email = model.Email;
             student.ModificationDate = DateTime.Now;
-            student.Status = Status.Inactive;
-
             _studentRepository.Update(student);
-            _studentRepository.Save();
+            return student;
+        }
+
+        public User UpdateStudent(string accountId, UserUpdateModel model)
+        {
+            var student = _studentRepository.GetByAccountNumber(accountId);
+            if (student == null)
+                throw new NotFoundException("No se encontro al estudiante");
+            student.Name = model.Name;
+            student.Major = _majorServices.Find(model.MajorId);
+            student.Campus = model.Campus;
+            student.Email = model.Email;
+            student.ModificationDate = DateTime.Now;
+            _studentRepository.Update(student);
             return student;
         }
     }
