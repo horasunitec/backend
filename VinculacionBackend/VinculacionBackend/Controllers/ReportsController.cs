@@ -40,8 +40,8 @@ namespace VinculacionBackend.Controllers
         {
             if (!string.IsNullOrEmpty(fileName))
             {
-                string resourcesPath = "\\VinculacionBackend\\Resources";
-                string fullPath =  HttpContext.Current.Server.MapPath("~") + resourcesPath + "\\" + fileName;
+                string resourcesPath = "\\VinculacionBackend\\Views";
+                string fullPath =  HttpContext.Current.Server.MapPath("~") + resourcesPath + "\\" + fileName + ".doc";
                 
                 if (File.Exists(fullPath))
                 {
