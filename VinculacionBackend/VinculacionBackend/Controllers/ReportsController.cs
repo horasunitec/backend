@@ -36,27 +36,27 @@ namespace VinculacionBackend.Controllers
         }
 
         [Route("api/Reports/Resources/{fileName}")]
-        public string GetDownloadFile(string fileName)
+        public HttpResponseMessage GetDownloadFile(string fileName)
         {
             if (!string.IsNullOrEmpty(fileName))
             {
-                string resourcesPath = "/Resources/";
-                string fullPath =  HttpContext.Current.Server.MapPath("~") + resourcesPath + "/" + fileName;
-                return fullPath;
-                // if (File.Exists(fullPath))
-                // {
+                string resourcesPath = "\\VinculacionBackend\\Resources";
+                string fullPath =  HttpContext.Current.Server.MapPath("~") + resourcesPath + "\\" + fileName;
+                
+                if (File.Exists(fullPath))
+                {
 
-                //     HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-                //     var fileStream = new FileStream(fullPath, FileMode.Open);
-                //     response.Content = new StreamContent(fileStream);
-                //     response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                //                 response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-                //     response.Content.Headers.ContentDisposition.FileName = fileName;
-                //     return response;
-                // }
+                    HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+                    var fileStream = new FileStream(fullPath, FileMode.Open);
+                    response.Content = new StreamContent(fileStream);
+                    response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+                    response.Content.Headers.ContentDisposition.FileName = fileName;
+                    return response;
+                }
             }
-            return "";
-            // return new HttpResponseMessage(HttpStatusCode.NotFound);
+            // return "";
+            return new HttpResponseMessage(HttpStatusCode.NotFound);
         }
 
 
