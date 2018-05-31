@@ -34,6 +34,30 @@ namespace VinculacionBackend.Controllers
             _studentServices = studentsServices;
         }
 
+        [Route("api/Reports/Resources/{fileName}")]
+        public string GetDownloadFile(string fileName)
+        {
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                string resourcesPath = "/Resources/";
+                string fullPath = AppDomain.CurrentDomain.BaseDirectory + resourcesPath + "/" + fileName;
+                return fullPath;
+                // if (File.Exists(fullPath))
+                // {
+
+                //     HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+                //     var fileStream = new FileStream(fullPath, FileMode.Open);
+                //     response.Content = new StreamContent(fileStream);
+                //     response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                //                 response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+                //     response.Content.Headers.ContentDisposition.FileName = fileName;
+                //     return response;
+                // }
+            }
+            return "";
+            // return new HttpResponseMessage(HttpStatusCode.NotFound);
+        }
+
 
         [Route("api/Reports/CostsReport/{year}")]
         public IHttpActionResult GetCostsReport(int year)
