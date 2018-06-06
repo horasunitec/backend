@@ -70,6 +70,7 @@ namespace VinculacionBackend.Services
                   sectionproject = new SectionProject {
                       Section = section,
                       Project = project,
+                      Organization = sectionProjectEntryModel.Organization,
                       Description = sectionProjectEntryModel.Description,
                       Cost=sectionProjectEntryModel.Cost,
                       IsApproved = false
@@ -77,6 +78,7 @@ namespace VinculacionBackend.Services
                   _sectionProjectRepository.Insert(sectionproject);
                   _sectionProjectRepository.Save();
                 }
+                sectionproject.Organization = sectionProjectEntryModel.Organization;
                 sectionproject.Description = sectionProjectEntryModel.Description;
                 sectionproject.Cost = sectionProjectEntryModel.Cost;
                 _sectionProjectRepository.Update(sectionproject);

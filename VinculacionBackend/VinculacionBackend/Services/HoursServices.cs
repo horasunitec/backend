@@ -81,12 +81,11 @@ namespace VinculacionBackend.Services
                     SectionName = hour.SectionProject.Section != null ? hour.SectionProject.Section.Code : "",
                     HoursWorked = hour.Amount,
                     ProjectDescription = hour.SectionProject.Project.Description,
-
                     Period = hour.SectionProject.Section.Period.Number,
                     Year = hour.SectionProject.Section.Period.Year,
                     ProfessorName = hour.SectionProject.Section.User.Name,
                     ClassName = hour.SectionProject.Section.Class.Name,
-                    Organization = hour.SectionProject.Project.BeneficiarieOrganization
+                    Organization = hour.SectionProject.Organization
                 };
                 reportProject.Add(project);
             }
@@ -116,8 +115,7 @@ namespace VinculacionBackend.Services
                     Period = hour.SectionProject.Section.Period.Number,
                     Year = hour.SectionProject.Section.Period.Year,
                     ProfessorName = hour.SectionProject.Section.User.Name,
-                    ClassName = hour.SectionProject.Section.Class.Name,
-                    Organization = hour.SectionProject.Project.BeneficiarieOrganization
+                    ClassName = hour.SectionProject.Section.Class.Name
                 };
                 reportProject.Add(project);
             }

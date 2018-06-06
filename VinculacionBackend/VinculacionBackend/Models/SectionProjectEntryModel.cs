@@ -9,6 +9,8 @@ namespace VinculacionBackend.Models
         public long SectiontId { get; set; }
         [Required(ErrorMessage = "*Lista de proyectos requerida")]
         public IList<long> ProjectIds { get; set; }
+        [Required(ErrorMessage = "*Organizacion requerida")]
+        public string Organization { get; set; }
         [Required(ErrorMessage = "*Descripcion requerida")]
         public string Description { get; set; }
         [Required(ErrorMessage = "*Costo requerido")]

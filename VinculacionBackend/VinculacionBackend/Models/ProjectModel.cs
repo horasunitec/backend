@@ -13,7 +13,5 @@ namespace VinculacionBackend.Models
         [Required(ErrorMessage = "*Carrera requerida")]
         [MajorListIsNotEmpty(ErrorMessage = "*lista no puede ir vacia")]
         public List<string> MajorIds { get; set; }
-        [Required(ErrorMessage = "*Organizacion Beneficiada requerida")]
-        public string BeneficiarieOrganization {get;set;}
     }
 }

@@ -22,11 +22,6 @@ namespace VinculacionBackend.Reports
 
         public HttpResponseMessage GenerateFiniquitoReport(string accountId)
         {
-            
-
-
-
-
             var student = _studentRepository.GetByAccountNumber(accountId);
             var totalHours = _studentRepository.GetStudentHours(accountId);
 
@@ -68,7 +63,7 @@ namespace VinculacionBackend.Reports
 
             var bodyHoras = "" + totalHours + " horas";
 
-            var body3 = " de vinculacion, cumpliendo asi con el requerimiento de horas que estipula el Reglamento General del Programa de Servicio Social.";
+            var body3 = " de vinculación, cumpliendo así con el requerimiento de horas que estipula el Reglamento General del Programa de Servicio Social.";
 
             _textDoucmentServices.AddTextToParagraph("\r\n"+ body1, p2,p2Style,doc,HorizontalAlignment.Justify, 13.8f);
             var text = _textDoucmentServices.AddTextToParagraph(finalName, p2, p2Style, doc,

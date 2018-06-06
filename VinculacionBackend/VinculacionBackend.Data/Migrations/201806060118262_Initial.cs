@@ -49,6 +49,7 @@ namespace VinculacionBackend.Data.Migrations
                         IsApproved = c.Boolean(nullable: false),
                         Description = c.String(),
                         Cost = c.Double(nullable: false),
+                        Organization = c.String(),
                         Project_Id = c.Long(),
                         Section_Id = c.Long(),
                     })
@@ -67,7 +68,6 @@ namespace VinculacionBackend.Data.Migrations
                         Name = c.String(),
                         Description = c.String(),
                         IsDeleted = c.Boolean(nullable: false),
-                        BeneficiarieOrganization = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             

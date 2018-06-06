@@ -181,7 +181,22 @@ namespace VinculacionBackend.Data.Repositories
 
         public void Update(User ent)
         {
-            var sql = @"Update [Users] 
+            var sql = "";
+            if (ent.Finiquiteado)
+            {
+                sql = @"Update [Users] 
+                        SET Finiquiteado = @Finiquiteado,
+                            ModificationDate = @ModificationDate
+                        WHERE AccountId = @AccountId";
+                _db.Database.ExecuteSqlCommand(sql,
+                new SqlParameter("@Finiquiteado", ent.Finiquiteado),
+                new SqlParameter("@ModificationDate", DateTime.Now),
+                new SqlParameter("@AccountId", ent.AccountId)
+                );
+            }
+            else
+            {
+                sql = @"Update [Users] 
                         SET Name = @Name,
                             Password = @Password,
                             Campus = @Campus,
@@ -189,8 +204,7 @@ namespace VinculacionBackend.Data.Repositories
                             ModificationDate = @ModificationDate,
                             Major_Id = @Major_Id
                         WHERE AccountId = @AccountId";
-
-            _db.Database.ExecuteSqlCommand(sql,
+                _db.Database.ExecuteSqlCommand(sql,
                 new SqlParameter("@Name", ent.Name),
                 new SqlParameter("@Password", ent.Password),
                 new SqlParameter("@Campus", ent.Campus),
@@ -199,6 +213,7 @@ namespace VinculacionBackend.Data.Repositories
                 new SqlParameter("@Major_Id", ent.Major.Id),
                 new SqlParameter("@AccountId", ent.AccountId)
                 );
+            }
         }
 
         private IEnumerable<UserRole> GetUserRoleRelationships()

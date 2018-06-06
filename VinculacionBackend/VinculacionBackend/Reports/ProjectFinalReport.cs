@@ -72,7 +72,6 @@ namespace VinculacionBackend.Reports
             {
                 new[] {"Codigo", model.SectionProject.Id.ToString()},
                 new[] {"Nombre del producto entregado", model.Project.Name},
-                new[] {"Nombre de la organización beneficiada", model.Project.BeneficiarieOrganization},
                 new[] {"Nombre de la asignatura", model.Section.Class.Name},
                 new[] {"Nombre de la carrera", model.MajorsOfStudents},
                 new[] {"Nombre del catedrático",model.ProfessorName},

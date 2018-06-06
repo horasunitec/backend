@@ -284,7 +284,6 @@ namespace VinculacionBackend.Data.Repositories
                 .Join(_db.ProjectMajorRels, sp => sp.Project.Id, pm => pm.Project.Id, (sp, pm) => new { sp, pm })
                 .Select(b => new PeriodReportModel
                 {
-                    Institución = b.sp.Project.BeneficiarieOrganization,
                     Producto = b.sp.Project.Name,
                     Asignatura = b.sp.Section.Class.Name,
                     Carrera = b.pm.Major.Name,
@@ -346,7 +345,6 @@ namespace VinculacionBackend.Data.Repositories
         public double Costo { get; set; }
         public string FechadeEntrega { get; set; }
         public string Horas { get; set; }
-        public string Institución { get; set; }
         public long NumProy { get; set; }
         public string Producto { get; set; }
     }

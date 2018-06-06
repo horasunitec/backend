@@ -83,7 +83,6 @@ namespace VinculacionBackend.Services
         {
             project.Name = model.Name;
             project.Description = model.Description;
-            project.BeneficiarieOrganization = model.BeneficiarieOrganization;
         }
 
         public Project Add(ProjectModel model)
@@ -238,7 +237,6 @@ namespace VinculacionBackend.Services
                 {
                     IdProyecto = project.ProjectId,
                     Nombre = project.Name,
-                    Beneficiario = project.BeneficiarieOrganization,
                     Maestro = professors,
                     Periodo = period.Number,
                     Anio = period.Year
