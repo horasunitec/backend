@@ -20,7 +20,7 @@ namespace VinculacionBackend
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                Credentials = new NetworkCredential(fromAddress.Address, "Vincul@cion7496!")
             };
 
             var message = new MailMessage(fromAddress, toAddress)
