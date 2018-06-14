@@ -12,8 +12,8 @@ namespace VinculacionBackend.Data.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Code = c.String(),
-                        Name = c.String(),
+                        Code = c.String(unicode: false),
+                        Name = c.String(unicode: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -22,7 +22,7 @@ namespace VinculacionBackend.Data.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Name = c.String(),
+                        Name = c.String(unicode: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -47,9 +47,9 @@ namespace VinculacionBackend.Data.Migrations
                     {
                         Id = c.Long(nullable: false, identity: true),
                         IsApproved = c.Boolean(nullable: false),
-                        Description = c.String(),
+                        Description = c.String(unicode: false),
                         Cost = c.Double(nullable: false),
-                        Organization = c.String(),
+                        Organization = c.String(unicode: false),
                         Project_Id = c.Long(),
                         Section_Id = c.Long(),
                     })
@@ -64,9 +64,9 @@ namespace VinculacionBackend.Data.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        ProjectId = c.String(),
-                        Name = c.String(),
-                        Description = c.String(),
+                        ProjectId = c.String(unicode: false),
+                        Name = c.String(unicode: false),
+                        Description = c.String(unicode: false),
                         IsDeleted = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
@@ -76,7 +76,7 @@ namespace VinculacionBackend.Data.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Code = c.String(),
+                        Code = c.String(unicode: false),
                         Class_Id = c.Long(),
                         Period_Id = c.Long(),
                         User_Id = c.Long(),
@@ -96,8 +96,8 @@ namespace VinculacionBackend.Data.Migrations
                         Id = c.Long(nullable: false, identity: true),
                         Number = c.Int(nullable: false),
                         Year = c.Int(nullable: false),
-                        FromDate = c.String(),
-                        ToDate = c.String(),
+                        FromDate = c.String(unicode: false),
+                        ToDate = c.String(unicode: false),
                         IsCurrent = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
@@ -107,13 +107,13 @@ namespace VinculacionBackend.Data.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        AccountId = c.String(),
-                        Name = c.String(),
-                        Password = c.String(),
-                        Campus = c.String(),
-                        Email = c.String(),
-                        CreationDate = c.DateTime(nullable: false),
-                        ModificationDate = c.DateTime(nullable: false),
+                        AccountId = c.String(unicode: false),
+                        Name = c.String(unicode: false),
+                        Password = c.String(unicode: false),
+                        Campus = c.String(unicode: false),
+                        Email = c.String(unicode: false),
+                        CreationDate = c.DateTime(nullable: false, precision: 0),
+                        ModificationDate = c.DateTime(nullable: false, precision: 0),
                         Finiquiteado = c.Boolean(nullable: false),
                         Status = c.Int(nullable: false),
                         Major_Id = c.Long(),
@@ -127,8 +127,8 @@ namespace VinculacionBackend.Data.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        MajorId = c.String(),
-                        Name = c.String(),
+                        MajorId = c.String(unicode: false),
+                        Name = c.String(unicode: false),
                         Faculty_Id = c.Long(),
                     })
                 .PrimaryKey(t => t.Id)
@@ -154,7 +154,7 @@ namespace VinculacionBackend.Data.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Name = c.String(),
+                        Name = c.String(unicode: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -211,15 +211,15 @@ namespace VinculacionBackend.Data.Migrations
             DropIndex("dbo.SectionUsers", new[] { "Section_Id" });
             DropIndex("dbo.ProjectMajors", new[] { "Project_Id" });
             DropIndex("dbo.ProjectMajors", new[] { "Major_Id" });
-            DropIndex("dbo.Majors", new[] { "Faculty_Id" });
-            DropIndex("dbo.Users", new[] { "Major_Id" });
-            DropIndex("dbo.Sections", new[] { "User_Id" });
-            DropIndex("dbo.Sections", new[] { "Period_Id" });
-            DropIndex("dbo.Sections", new[] { "Class_Id" });
-            DropIndex("dbo.SectionProjects", new[] { "Section_Id" });
-            DropIndex("dbo.SectionProjects", new[] { "Project_Id" });
             DropIndex("dbo.Hours", new[] { "User_Id" });
             DropIndex("dbo.Hours", new[] { "SectionProject_Id" });
+            DropIndex("dbo.SectionProjects", new[] { "Section_Id" });
+            DropIndex("dbo.Sections", new[] { "User_Id" });
+            DropIndex("dbo.Users", new[] { "Major_Id" });
+            DropIndex("dbo.Majors", new[] { "Faculty_Id" });
+            DropIndex("dbo.Sections", new[] { "Period_Id" });
+            DropIndex("dbo.Sections", new[] { "Class_Id" });
+            DropIndex("dbo.SectionProjects", new[] { "Project_Id" });
             DropTable("dbo.UserRoles");
             DropTable("dbo.SectionUsers");
             DropTable("dbo.Roles");

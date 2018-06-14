@@ -9,8 +9,6 @@ namespace VinculacionBackend.Models
         public string AccountId { get; set; }
         [Required(ErrorMessage = "*Nombre requerido")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "*Contraseña requerida")]
-        public string Password { get; set; }
         [Required(ErrorMessage = "*Campus requerido")]
         public string Campus { get; set; }
         [Required(ErrorMessage = "*Email requerido")]

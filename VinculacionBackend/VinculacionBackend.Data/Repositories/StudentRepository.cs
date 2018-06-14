@@ -1,3 +1,4 @@
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -184,19 +185,20 @@ namespace VinculacionBackend.Data.Repositories
             var sql = "";
             if (ent.Finiquiteado)
             {
-                sql = @"Update [Users] 
+                sql = @"Update `Users`
                         SET Finiquiteado = @Finiquiteado,
                             ModificationDate = @ModificationDate
                         WHERE AccountId = @AccountId";
                 _db.Database.ExecuteSqlCommand(sql,
-                new SqlParameter("@Finiquiteado", ent.Finiquiteado),
-                new SqlParameter("@ModificationDate", DateTime.Now),
-                new SqlParameter("@AccountId", ent.AccountId)
+                    
+                new MySqlParameter("@Finiquiteado", ent.Finiquiteado),
+                new MySqlParameter("@ModificationDate", DateTime.Now),
+                new MySqlParameter("@AccountId", ent.AccountId)
                 );
             }
             else
             {
-                sql = @"Update [Users] 
+                sql = @"Update `Users`
                         SET Name = @Name,
                             Password = @Password,
                             Campus = @Campus,
@@ -205,13 +207,13 @@ namespace VinculacionBackend.Data.Repositories
                             Major_Id = @Major_Id
                         WHERE AccountId = @AccountId";
                 _db.Database.ExecuteSqlCommand(sql,
-                new SqlParameter("@Name", ent.Name),
-                new SqlParameter("@Password", ent.Password),
-                new SqlParameter("@Campus", ent.Campus),
-                new SqlParameter("@Email", ent.Email),
-                new SqlParameter("@ModificationDate", ent.ModificationDate),
-                new SqlParameter("@Major_Id", ent.Major.Id),
-                new SqlParameter("@AccountId", ent.AccountId)
+                new MySqlParameter("@Name", ent.Name),
+                new MySqlParameter("@Password", ent.Password),
+                new MySqlParameter("@Campus", ent.Campus),
+                new MySqlParameter("@Email", ent.Email),
+                new MySqlParameter("@ModificationDate", ent.ModificationDate),
+                new MySqlParameter("@Major_Id", ent.Major.Id),
+                new MySqlParameter("@AccountId", ent.AccountId)
                 );
             }
         }
@@ -361,8 +363,9 @@ namespace VinculacionBackend.Data.Repositories
         public IQueryable<User> GetNonFinalizedByYear(int year)
         {
             var rels = GetUserRoleRelationships();
+            var temp = "2" + year.ToString().Remove(0, 2);
             var students = _db.Users.Include(m => m.Major).Include(f => f.Major.Faculty).Where(x => rels.Any(y => y.User.Id == x.Id))
-                .Where(y => !y.Finiquiteado && y.AccountId.StartsWith("2" + year.ToString().Remove(0,2)));
+                .Where(y => !y.Finiquiteado && y.AccountId.StartsWith(temp));
             return students;
         }
     }
